@@ -2,7 +2,7 @@
 
 
 
-//  TP FINAL GESTOR DE CRUCERO
+//  TP FINAL GESTOR DE HOTEL
 
 void main() {
 
