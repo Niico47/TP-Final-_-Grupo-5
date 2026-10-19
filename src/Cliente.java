@@ -17,9 +17,10 @@ public final class Cliente extends Persona{
         if(informacionPasajero.isEmpty()){
             mensaje="LstaVacia";
         }
-        for(int i=0;i<informacionPasajero.size()){
+        for(int i=0;i<informacionPasajero.size();i++){
             mensaje=mensaje+informacionPasajero.get(i);
         }
         return mensaje;
     }
+    
 }
