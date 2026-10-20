@@ -1,3 +1,3 @@
-public class Administrador extends Staff{
+public class Administrador<T> extends Staff{
 
 }
