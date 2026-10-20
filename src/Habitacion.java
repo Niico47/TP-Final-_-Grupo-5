@@ -5,16 +5,12 @@ import java.util.Scanner;
 
 public class Habitacion<T> {
     int nroHabitacion;
-    LocalDate checkIn;
-    LocalDate checkOut;
     TipoHabitacion tipo;
     boolean disponibilidad;//ocupado o no;
     List<String> estado;
     Scanner sc=new Scanner(System.in);
-    public Habitacion(int nroHabitacion, LocalDate checkOut, LocalDate checkIn, boolean disponibilidad, TipoHabitacion tipo) {
+    public Habitacion(int nroHabitacion,boolean disponibilidad, TipoHabitacion tipo) {
         this.nroHabitacion = nroHabitacion;
-        this.checkOut = checkOut;
-        this.checkIn = checkIn;
         this.disponibilidad = disponibilidad;
         this.tipo = tipo;
         this.estado=new ArrayList<>();
@@ -22,22 +18,6 @@ public class Habitacion<T> {
 
     public int getNroHabitacion() {
         return nroHabitacion;
-    }
-
-    public LocalDate getCheckOut() {
-        return checkOut;
-    }
-
-    public void setCheckOut(LocalDate checkOut) {
-        this.checkOut = checkOut;
-    }
-
-    public LocalDate getCheckIn() {
-        return checkIn;
-    }
-
-    public void setCheckIn(LocalDate checkIn) {
-        this.checkIn = checkIn;
     }
 
     public boolean isDisponibilidad() {
