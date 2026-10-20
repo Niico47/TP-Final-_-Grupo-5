@@ -1,4 +1,4 @@
-public class Persona {
+public class Persona<T> {
     String nombre;
     String dni;
     String localidad;

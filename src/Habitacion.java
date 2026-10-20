@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Habitacion {
+public class Habitacion<T> {
     int nroHabitacion;
     LocalDate checkIn;
     LocalDate checkOut;

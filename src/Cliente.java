@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Cliente extends Persona{
+public final class Cliente<T> extends Persona{
     List<String> informacionPasajero;
 
     public Cliente(String nombre,String dni,String localidad,String domicilio){
