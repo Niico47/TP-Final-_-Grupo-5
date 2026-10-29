@@ -1,3 +1,3 @@
-public enum TipoHabitacion {
+public enum ETipoHabitacion {
     SINGLE,DOBLE,TRIPLE,SUIT;
 }
