@@ -1,8 +1,10 @@
+
 public class Persona<T> {
-    String nombre;
-    String dni;
-    String localidad;
-    String domicilio;
+
+    private String nombre;
+    private String dni;
+    private String localidad;
+    private String domicilio;
 
     public Persona(String nombre, String dni, String domicilio, String localidad) {
         this.nombre = nombre;
