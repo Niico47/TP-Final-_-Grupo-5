@@ -7,6 +7,74 @@ public class Habitacion<T> {
     int numeroHabitacion;
     ETipoHabitacion tipoHabitacion;
     EEstadoHabitacion estadoHabitacion;
+    boolean reservada;
+    double precioXnoche;
+
+    public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion, boolean reservada, double precioXnoche) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.estadoHabitacion = estadoHabitacion;
+        this.tipoHabitacion = tipoHabitacion;
+        this.reservada = reservada;
+        this.precioXnoche = precioXnoche;
+    }
+
+    public int getNumeroHabitacion() {
+        return numeroHabitacion;
+    }
+
+    public void setNumeroHabitacion(int numeroHabitacion) {
+        this.numeroHabitacion = numeroHabitacion;
+    }
+
+    public ETipoHabitacion getTipoHabitacion() {
+        return tipoHabitacion;
+    }
+
+    public void setTipoHabitacion(ETipoHabitacion tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
+    }
+
+    public EEstadoHabitacion getEstadoHabitacion() {
+        return estadoHabitacion;
+    }
+
+    public void setEstadoHabitacion(EEstadoHabitacion estadoHabitacion) {
+        this.estadoHabitacion = estadoHabitacion;
+    }
+
+    public boolean isReservada() {
+        return reservada;
+    }
+
+    public void setReservada(boolean reservada) {
+        this.reservada = reservada;
+    }
+
+    public double getPrecioXnoche() {
+        return precioXnoche;
+    }
+
+    public void setPrecioXnoche(double precioXnoche) {
+        this.precioXnoche = precioXnoche;
+    }
+
+    public double precioNoche(){
+        double resultado=0;
+        if(tipoHabitacion== ETipoHabitacion.SINGLE){
+            resultado=precioXnoche;
+        }
+        if(tipoHabitacion==ETipoHabitacion.DOBLE){
+            resultado=precioXnoche*2;
+        }
+        if(tipoHabitacion==ETipoHabitacion.TRIPLE){
+            resultado=precioXnoche*3;
+        }
+        if(tipoHabitacion==ETipoHabitacion.SUIT){
+            resultado=precioXnoche*4;
+        }
+        return resultado;
+    }
+
     //
 
 }
