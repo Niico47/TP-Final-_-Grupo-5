@@ -6,13 +6,11 @@ import java.util.List;
 public final class Cliente extends Persona {
     List<String> informacionPasajero;
     private String usuario;
-    private String contrasenia;
 
-    public Cliente(String nombre, String dni, String localidad, String domicilio, String contrasenia){
+    public Cliente(String nombre, String dni, String localidad, String domicilio){
         super(nombre, dni, domicilio, localidad);
         this.informacionPasajero=new ArrayList<>();
         this.usuario=null;
-        this.contrasenia=null;
     }
 
     public String getUsuario() {
@@ -46,13 +44,4 @@ public final class Cliente extends Persona {
     public String cancelarReserva(){
         return "Reseva cancelada, cuarto numero 4 ahora libre";
     }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
 }
