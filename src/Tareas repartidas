@@ -15,6 +15,7 @@ Hay que hacer el menu para que el cliente, administrador y recepcionista puedan 
 Hacer metodos para el staff segun su puesto (administrador y recepcionista)(crear nuevo staff, cambiar
  el estado de las habitaciones, eliminar cuenta de cliente, eliminar cuenta de recepcionista, cambiar costo
  habitacion, cambiar sueldos, etc). - ema
+ 
 
 
 ------------------------------------------------------------------------------------------------------------------------------
