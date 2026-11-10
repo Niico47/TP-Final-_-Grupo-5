@@ -1,0 +1,31 @@
+FALTA HACER:
+Sistema de reservas, El cliente tiene que poder reservar una habitacion libre,
+ durante un periodo X de tiempo dentro de un almanaque.
+Segun que dias del mes estan ocupados y libres, se decidira si el cliente puede reservar o no. - nico
+
+
+Hacer metodos para Cliente (reservar, cancelar reserva, consultar disponibilidad) y funciones
+para cuando ya esten en la habitacion, por ej: (pedir comida, pedir limpieza) - nico
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Hay que hacer el menu para que el cliente, administrador y recepcionista puedan interactuar con el sistema,
+ esto se tendra que hacer mas tarde cuando el resto del codigo este mas completo. - ema
+
+Hacer metodos para el staff segun su puesto (administrador y recepcionista)(crear nuevo staff, cambiar
+ el estado de las habitaciones, eliminar cuenta de cliente, eliminar cuenta de recepcionista, cambiar costo
+ habitacion, cambiar sueldos, etc). - ema
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Hay que hacer la clase para que el cliente pueda crearse un "usuario" para posteriormente hacer reservas. - lucas
+
+Hacer los metodos para las habitaciones. - lucas
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Hay que hacer la coneccion a la base de datos donde guardaremos la info de las habitaciones,
+ los clientes, el staff y las reservas.
+(base de datos al final)
