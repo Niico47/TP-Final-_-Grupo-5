@@ -72,4 +72,11 @@ public class Staff<T> extends Persona {
 
         return mensaje;
     }
+    public StringBuilder usuariosCreados(){
+        StringBuilder mensaje=new StringBuilder();
+        for(int i=0;i<listaClientes.size();i++){
+            mensaje.append(listaClientes.get(i)).append("\n");
+        }
+        return mensaje;
+    }
 }
