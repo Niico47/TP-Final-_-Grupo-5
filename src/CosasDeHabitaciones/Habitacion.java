@@ -1,5 +1,8 @@
 package CosasDeHabitaciones;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //La disponibilidad va a depender de su su estado es Disponible y de las reservas que los usuarios hallan echo en ella.
 //
 public class Habitacion {
@@ -10,13 +13,45 @@ public class Habitacion {
     boolean reservada;
     double precioXnoche;
 
+    private Map<String,Integer> stockMiniBar;
+    private Map<String,Integer> consumos;
+
+
     public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion, boolean reservada, double precioXnoche) {
         this.numeroHabitacion = numeroHabitacion;
         this.estadoHabitacion = estadoHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.reservada = reservada;
         this.precioXnoche = 500*precioNoche();
+        this.stockMiniBar=new HashMap<>();
+        this.consumos=new HashMap<>();
+        this.reponerMiniBarADefault(); // para q cualquier habitacion nazca con su minibar
     }
+
+    public void reponerMiniBarADefault(){
+        stockMiniBar.clear();
+        int tope=1; // cantidad maxima de unidades
+        if (tipoHabitacion== ETipoHabitacion.DOBLE){
+            tope=2;
+        } else if (tipoHabitacion== ETipoHabitacion.TRIPLE){
+            tope=3;
+        } else if (tipoHabitacion== ETipoHabitacion.SUIT){
+            tope=4;
+            stockMiniBar.put("Champagne",1);
+        }
+
+        stockMiniBar.put("Agua",tope);
+        stockMiniBar.put("Jugo de naranja",tope);
+        stockMiniBar.put("Coca Cola",tope);
+        stockMiniBar.put("Cerveza",tope);
+        stockMiniBar.put("Chocolate",tope);
+        stockMiniBar.put("Papas fritas clasicas",tope);
+        stockMiniBar.put("Barra de cereal",tope);
+
+
+    }
+
+
 
 
 
@@ -102,57 +137,6 @@ public class Habitacion {
         }
         return this.precioXnoche*cantidadNoches;
     }
-    
+
 }
 
-//public class CosasDeHabitaciones.Habitacion<T> {
-//    int nroHabitacion;
-//    CosasDeHabitaciones.ETipoHabitacion tipoHabitacion;
-//    boolean disponibilidad;//ocupado o no;
-//    List<String> estado;
-//    Scanner sc=new Scanner(System.in);
-//    public CosasDeHabitaciones.Habitacion(int nroHabitacion,boolean disponibilidad, TipoHabitacion tipo) {
-//        this.nroHabitacion = nroHabitacion;
-//        this.disponibilidad = disponibilidad;
-//        this.tipo = tipo;
-//        this.estado=new ArrayList<>();
-//    }
-
-//    public int getNroHabitacion() {
-//        return nroHabitacion;
-//    }
-//
-//    public boolean isDisponibilidad() {
-//        return disponibilidad;
-//    }
-//
-//    public void setDisponibilidad(boolean disponibilidad) {
-//        this.disponibilidad = disponibilidad;
-//    }
-//
-//    public void agregarDescripcionHabitacion(String e){
-//        int num;
-//        String mensaje="";
-//        mensaje="Opcion 1: No se puede usar la habitacion \nOpcion 2: habilitar la habitacion";
-//        num=sc.nextInt();
-//        switch(num){
-//            case 1:
-//                estado.add(e);
-//                setDisponibilidad(false);
-//            case 2:
-//                estado.add(e);
-//                setDisponibilidad(true);
-//        }
-//    }
-//    public String mostrarEstadoHabitacion(){
-//        String mensaje="";
-//        if(estado.isEmpty()){
-//            mensaje="listaVacia";
-//        }
-//        for(int i=0;i<estado.size();i++){
-//            mensaje=mensaje+estado.get(i);
-//        }
-//        return mensaje;
-//    }
-//
-//}
