@@ -82,9 +82,13 @@ public class Staff<T> extends Persona {
 
     public void eliminarUsuario(Cliente cliente){
         for(Cliente c:listaClientes){
-            if(c.getUsuario()== cliente.getUsuario()){
+            if(c.getUsuario().equalsIgnoreCase(cliente.getUsuario())){
                 listaClientes.remove(cliente);
+                cliente.setContrasenia(null);
+                cliente.setUsuario(null);
             }
         }
     }
+
+    
 }
