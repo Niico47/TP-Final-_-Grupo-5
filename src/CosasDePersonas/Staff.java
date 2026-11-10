@@ -66,7 +66,7 @@ public class Staff<T> extends Persona {
 
             System.out.print("\nContrasenia: ");
             cliente.setContrasenia(sc.nextLine());
-
+            listaClientes.add(cliente);
             mensaje = "\nUsuario creado con exito";
         } else {
             mensaje = "\nPara crear usuarios se necesita ser Administrador";
@@ -115,10 +115,10 @@ public class Staff<T> extends Persona {
             if (existeUsuario(nuevoUsuario)) {
                 throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
             }
-
             System.out.print("\nContrasenia: ");
             contrasenia = sc.nextLine();
-
+            listaStaff.add(nuevoUsuario);
+            listaStaff.add(contrasenia);
             mensaje = "\nUsuario creado con exito";
         } else {
             mensaje = "\nPara crear usuarios se necesita ser Administrador";
