@@ -8,7 +8,7 @@ public final class Cliente<T> extends Persona {
     private String usuario;
     private String contrasenia;
 
-    public Cliente(String nombre,String dni,String localidad,String domicilio,String usuario,String contrasenia){
+    public Cliente(String nombre,String dni,String localidad,String domicilio){
         super(nombre, dni, domicilio, localidad);
         this.informacionPasajero=new ArrayList<>();
         this.usuario=null;

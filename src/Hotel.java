@@ -1,7 +1,10 @@
 import CosasDeHabitaciones.Habitacion;
+import CosasDeHabitaciones.Reserva;
 import CosasDePersonas.Cliente;
 import CosasDePersonas.Staff;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -12,6 +15,7 @@ public class Hotel {
     private HashMap<Integer, Habitacion> listaHabitaciones; // numero de habitacion(Key) - info habitacion(data)
     private HashSet<Staff> listaStaff;
     private HashSet<Cliente> listaClientes;
+    private ArrayList<Reserva> listaReservas;
 
     public Hotel(String nombreHotel, String direccionHotel) {
         this.nombreHotel = nombreHotel;
@@ -19,6 +23,7 @@ public class Hotel {
         this.listaHabitaciones = new HashMap<Integer, Habitacion>();
         this.listaStaff = new HashSet<Staff>();
         this.listaClientes = new HashSet<Cliente>();
+        this.listaReservas = new ArrayList<Reserva>();
     }
 
     public String registrarCliente(Cliente clienteDado){
@@ -55,5 +60,9 @@ public class Hotel {
     public String clienteHaceReserva(String dni){
         Cliente clienteTemp = obtenerPorDni(dni);
         return clienteTemp.hacerReserva();
+    }
+
+    public String crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut){
+        return "";
     }
 }
