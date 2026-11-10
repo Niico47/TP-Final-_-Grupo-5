@@ -15,7 +15,7 @@ public class Habitacion<T> {
         this.estadoHabitacion = estadoHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.reservada = reservada;
-        this.precioXnoche = precioXnoche;
+        this.precioXnoche = 500*precioNoche();
     }
 
     public int getNumeroHabitacion() {
@@ -61,16 +61,16 @@ public class Habitacion<T> {
     public double precioNoche(){
         double resultado=0;
         if(tipoHabitacion== ETipoHabitacion.SINGLE){
-            resultado=precioXnoche;
+            resultado=1;
         }
         if(tipoHabitacion==ETipoHabitacion.DOBLE){
-            resultado=precioXnoche*2;
+            resultado=2;
         }
         if(tipoHabitacion==ETipoHabitacion.TRIPLE){
-            resultado=precioXnoche*3;
+            resultado=3;
         }
         if(tipoHabitacion==ETipoHabitacion.SUIT){
-            resultado=precioXnoche*4;
+            resultado=4;
         }
         return resultado;
     }
