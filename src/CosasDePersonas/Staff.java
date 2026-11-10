@@ -79,4 +79,12 @@ public class Staff<T> extends Persona {
         }
         return mensaje;
     }
+
+    public void eliminarUsuario(Cliente cliente){
+        for(Cliente c:listaClientes){
+            if(c.getUsuario()== cliente.getUsuario()){
+                listaClientes.remove(cliente);
+            }
+        }
+    }
 }
