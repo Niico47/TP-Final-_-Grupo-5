@@ -25,7 +25,7 @@ void main() {
 // y las habitaciones que no estén disponibles por algún motivo
 // (limpieza, reparación, desinfección, etc. Detallar el motivo).
 
-    Cliente cliente1 = new Cliente<>("Juan", "123", "Buenos Aires", "Luro 1234");
+    Cliente cliente1 = new Cliente("Juan", "123", "Buenos Aires", "Luro 1234");
 
     Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
 
