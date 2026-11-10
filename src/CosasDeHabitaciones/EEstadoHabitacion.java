@@ -4,6 +4,7 @@ package CosasDeHabitaciones;//habitaciones disponibles, y las habitaciones que n
 public enum EEstadoHabitacion {
 
     DISPONIBLE("Disponible"),
+    OCUPADA("Ocupada"),
     LIMPIEZA("En limpieza"),
     REPARACION("En reparación"),
     DESINFECCION("En desinfección");

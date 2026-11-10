@@ -2,8 +2,8 @@ package CosasDeHabitaciones;
 
 //La disponibilidad va a depender de su su estado es Disponible y de las reservas que los usuarios hallan echo en ella.
 //
-public class Habitacion<T> {
-
+public class Habitacion {
+    private String motivoDisponibilidad;
     int numeroHabitacion;
     ETipoHabitacion tipoHabitacion;
     EEstadoHabitacion estadoHabitacion;
@@ -17,6 +17,8 @@ public class Habitacion<T> {
         this.reservada = reservada;
         this.precioXnoche = 500*precioNoche();
     }
+
+
 
     public int getNumeroHabitacion() {
         return numeroHabitacion;
@@ -75,7 +77,27 @@ public class Habitacion<T> {
         return resultado;
     }
 
-    //
+    public boolean estaDisponible(){ //metodo para saber si hay lugar
+        return this.estadoHabitacion== EEstadoHabitacion.DISPONIBLE && !this.reservada;
+    }
+
+    public void realizarCheckIn() throws HabitacionNoDisponibleException { // si el metodo falla lanza esta excepcion
+        if (!estaDisponible()){
+            throw new HabitacionNoDisponibleException("\nLa habitacion "+numeroHabitacion+" no esta disponible");
+        }
+        this.estadoHabitacion=EEstadoHabitacion.OCUPADA;
+        this.reservada=true;
+        this.motivoDisponibilidad="\n Ocupada por cliente.";
+    }
+
+    public void realizarCheckOut() {
+        this.estadoHabitacion = EEstadoHabitacion.LIMPIEZA;
+        this.reservada = false;
+        this.motivoDisponibilidad = "\n Requiere limpieza posterior a salida de cliente";
+    }
+
+
+
 
 }
 

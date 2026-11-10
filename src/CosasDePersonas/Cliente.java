@@ -3,12 +3,12 @@ package CosasDePersonas;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Cliente<T> extends Persona {
+public final class Cliente extends Persona {
     List<String> informacionPasajero;
     private String usuario;
     private String contrasenia;
 
-    public Cliente(String nombre,String dni,String localidad,String domicilio){
+    public Cliente(String nombre, String dni, String localidad, String domicilio, String contrasenia){
         super(nombre, dni, domicilio, localidad);
         this.informacionPasajero=new ArrayList<>();
         this.usuario=null;
@@ -23,14 +23,7 @@ public final class Cliente<T> extends Persona {
         this.usuario = usuario;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
+    
     public void agregarInfoPasajero(String e){
         informacionPasajero.add(e);
     }
@@ -53,5 +46,13 @@ public final class Cliente<T> extends Persona {
     public String cancelarReserva(){
         return "Reseva cancelada, cuarto numero 4 ahora libre";
     }
-    
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
 }
