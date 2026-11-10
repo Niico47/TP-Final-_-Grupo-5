@@ -90,11 +90,13 @@ public class Habitacion {
         stockMiniBar.put(productoEncontrado,disponible-cantidad); // remplaza el valor q ya existe en el mapa
         int acumuladoActual=consumos.getOrDefault(productoEncontrado,0);// como va a ser la primera vez q se consume u agua la defaltuvalue va a ser 0
         consumos.put(productoEncontrado,acumuladoActual+cantidad);// se guarda en connsumos los valores sumados
-
-
     }
 
-
+    public void realizarLimpieza(){
+        System.out.printf("\n Iniciando limpieza de habitacion "+numeroHabitacion+);
+        reponerMiniBarADefault();
+        System.out.printf("\n Limpieza finalizada. ");
+    }
 
 
 
