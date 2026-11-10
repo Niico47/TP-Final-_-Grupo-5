@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Staff<T> extends Persona {
     private List<Cliente> listaClientes = new ArrayList<>();
+    private List<String> listaStaff = new ArrayList<>();
     int id_Empleado;
     ETipoUsuario puesto;
     double salarioBase;
@@ -47,6 +48,7 @@ public class Staff<T> extends Persona {
         }
         return false; // El nombre está libre
     }
+
     public String crearUsuario(Cliente cliente) {
         Scanner sc = new Scanner(System.in);
         String mensaje = "";
@@ -67,22 +69,23 @@ public class Staff<T> extends Persona {
 
             mensaje = "\nUsuario creado con exito";
         } else {
-            mensaje = "\nPara crear usuarios se necesita ser GERENTE";
+            mensaje = "\nPara crear usuarios se necesita ser Administrador";
         }
 
         return mensaje;
     }
-    public StringBuilder usuariosCreados(){
-        StringBuilder mensaje=new StringBuilder();
-        for(int i=0;i<listaClientes.size();i++){
+
+    public StringBuilder usuariosCreados() {
+        StringBuilder mensaje = new StringBuilder();
+        for (int i = 0; i < listaClientes.size(); i++) {
             mensaje.append(listaClientes.get(i)).append("\n");
         }
         return mensaje;
     }
 
-    public void eliminarUsuario(Cliente cliente){
-        for(Cliente c:listaClientes){
-            if(c.getUsuario().equalsIgnoreCase(cliente.getUsuario())){
+    public void eliminarUsuario(Cliente cliente) {
+        for (Cliente c : listaClientes) {
+            if (c.getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
                 listaClientes.remove(cliente);
                 cliente.setContrasenia(null);
                 cliente.setUsuario(null);
@@ -90,5 +93,37 @@ public class Staff<T> extends Persona {
         }
     }
 
-    
+    private boolean existeUsuarioStaff(String usuario) {
+        for (String staff : listaStaff) {
+            if (staff.equals(usuario)) {
+                return true; // Se encontró el duplicado
+            }
+        }
+        return false; // El nombre está libre
+    }
+
+    public String crearUsuarioStaff() {
+        Scanner sc = new Scanner(System.in);
+        String mensaje = "";
+        String nuevoUsuario;
+        String contrasenia;
+        if (puesto == ETipoUsuario.Administrador) {
+            System.out.print("Nombre usuario: ");
+            nuevoUsuario = sc.nextLine();
+
+            // 1. VALIDACIÓN:
+            if (existeUsuario(nuevoUsuario)) {
+                throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
+            }
+
+            System.out.print("\nContrasenia: ");
+            contrasenia = sc.nextLine();
+
+            mensaje = "\nUsuario creado con exito";
+        } else {
+            mensaje = "\nPara crear usuarios se necesita ser Administrador";
+        }
+
+        return mensaje;
+    }
 }
