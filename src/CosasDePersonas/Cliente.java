@@ -14,6 +14,7 @@ public final class Cliente<T> extends Persona {
     public void agregarInfoPasajero(String e){
         informacionPasajero.add(e);
     }
+
     public String verInfoPasajero(){
         String mensaje="";
         if(informacionPasajero.isEmpty()){
@@ -23,6 +24,14 @@ public final class Cliente<T> extends Persona {
             mensaje=mensaje+informacionPasajero.get(i);
         }
         return mensaje;
+    }
+
+    public String hacerReserva(){
+        return "Reseva hecha, cuarto numero 4 ahora acupado";
+    }
+
+    public String cancelarReserva(){
+        return "Reseva cancelada, cuarto numero 4 ahora libre";
     }
     
 }

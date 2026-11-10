@@ -43,4 +43,17 @@ public class Hotel {
         listaHabitaciones.put(numeroHabitacion, habitacionDada);
         return "La habitacion se ha registrado con exito en la lista de habitaciones.\n";
     }
+
+    public Cliente obtenerPorDni(String dni) {
+        for (Cliente clienteTemp : listaClientes) {
+            if (clienteTemp.getDni().equals(dni))
+                return clienteTemp; // Lo encontró, devuelve el objeto } }
+        }
+        return null;
+    }
+
+    public String clienteHaceReserva(String dni){
+        Cliente clienteTemp = obtenerPorDni(dni);
+        return clienteTemp.hacerReserva();
+    }
 }
