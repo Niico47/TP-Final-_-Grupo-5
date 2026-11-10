@@ -90,7 +90,11 @@ public class Habitacion {
         this.motivoDisponibilidad="\n Ocupada por cliente.";
     }
 
-
+    public void realizarCheckOut() {
+        this.estadoHabitacion = EEstadoHabitacion.LIMPIEZA;
+        this.reservada = false;
+        this.motivoDisponibilidad = "\n Requiere limpieza posterior a salida de cliente";
+    }
 
 
 
