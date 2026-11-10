@@ -1,8 +1,11 @@
+import CosasDeHabitaciones.EEstadoHabitacion;
 import CosasDeHabitaciones.Habitacion;
 import CosasDeHabitaciones.Reserva;
 import CosasDePersonas.Cliente;
 import CosasDePersonas.Staff;
 import Excepciones.EClienteNoExiste;
+import Excepciones.EFechasNoValidas;
+import Excepciones.EHabitacionNoDisponible;
 import Excepciones.EHabitacionNoExiste;
 
 import java.time.LocalDate;
@@ -68,29 +71,25 @@ public class Hotel {
     }
 
 
-    public String crearReservaParte1(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion){
+    public void crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion){
 
         Cliente clienteTemp = obtenerClientePorDni(dniCliente);
         Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion);
 
+        if (habitacionTemp.getEstadoHabitacion() != EEstadoHabitacion.DISPONIBLE){
+            throw new EHabitacionNoDisponible("La habitacion no se encuentra disponible: "+habitacionTemp.getEstadoHabitacion().getDescripcion());
+        }
+
         if (fechaCheckOut.isBefore(fechaCheckIn) || fechaCheckOut.isEqual(fechaCheckIn)){
-            return "ERROR: La fecha de Check Out tiene que ser postetior a la fecha de Check In";
+            throw new EFechasNoValidas("ERROR: La fecha de Check Out tiene que ser posterior a la fecha de Check In");
         }
         boolean fechaValida = checkDisponibilidadFecha(fechaCheckIn, fechaCheckOut, numeroHabitacion);
-
-        if (!fechaValida){
-            return "Error: La fecha no es valida, se superpone con otra reserva.";
-        }
-        return crearReservaParte2(fechaCheckIn, fechaCheckOut, dniCliente, numeroHabitacion);
     }
 
     public boolean checkDisponibilidadFecha(LocalDate fechaCheckIn, LocalDate fechaCheckOut, int numeroHabitacion){
         //Este metodo se fija si la fecha de reserva tiene conflicto con cualquier reserva ya existente en la listaReservas
     }
 
-    public String crearReservaParte2(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion){
-        //Aca se verificar el resto de la data, si id usuario existe, si la habitacion existe y esta disponible(no en repareciones)
-    }
 
     public String clienteHaceReserva(String dni){
         Cliente clienteTemp = obtenerClientePorDni(dni);
