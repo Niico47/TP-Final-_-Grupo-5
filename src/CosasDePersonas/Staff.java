@@ -1,4 +1,6 @@
-public class Staff<T> extends Persona{
+package CosasDePersonas;
+
+public class Staff<T> extends Persona {
     int id_Empleado;
     PuestoEmpleado puesto;
     double salarioBase;

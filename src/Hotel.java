@@ -1,3 +1,7 @@
+import CosasDeHabitaciones.Habitacion;
+import CosasDePersonas.Cliente;
+import CosasDePersonas.Staff;
+
 import java.util.HashMap;
 import java.util.HashSet;
 

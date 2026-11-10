@@ -1,3 +1,5 @@
+package DataBaseStuff;
+
 import java.sql .*;
 
 public class conectionDB {

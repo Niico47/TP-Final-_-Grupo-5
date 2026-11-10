@@ -1,4 +1,4 @@
-//habitaciones disponibles, y las habitaciones que no estén disponibles por algún motivo
+package CosasDeHabitaciones;//habitaciones disponibles, y las habitaciones que no estén disponibles por algún motivo
 // (limpieza, reparación, desinfección, etc. Detallar el motivo).
 
 public enum EEstadoHabitacion {

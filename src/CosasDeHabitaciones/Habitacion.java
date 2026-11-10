@@ -1,7 +1,4 @@
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+package CosasDeHabitaciones;
 
 //La disponibilidad va a depender de su su estado es Disponible y de las reservas que los usuarios hallan echo en ella.
 //
@@ -14,13 +11,13 @@ public class Habitacion<T> {
 
 }
 
-//public class Habitacion<T> {
+//public class CosasDeHabitaciones.Habitacion<T> {
 //    int nroHabitacion;
-//    ETipoHabitacion tipoHabitacion;
+//    CosasDeHabitaciones.ETipoHabitacion tipoHabitacion;
 //    boolean disponibilidad;//ocupado o no;
 //    List<String> estado;
 //    Scanner sc=new Scanner(System.in);
-//    public Habitacion(int nroHabitacion,boolean disponibilidad, TipoHabitacion tipo) {
+//    public CosasDeHabitaciones.Habitacion(int nroHabitacion,boolean disponibilidad, TipoHabitacion tipo) {
 //        this.nroHabitacion = nroHabitacion;
 //        this.disponibilidad = disponibilidad;
 //        this.tipo = tipo;

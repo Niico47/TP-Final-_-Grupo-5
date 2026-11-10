@@ -16,7 +16,7 @@
 
 void main() {
 
-//habitaciones pasajeros/clientes del hotel, Administrador,Recepcionista, Pasajero
+//habitaciones pasajeros/clientes del hotel, ClasesPersonas.Administrador,ClasesPersonas.Recepcionista, Pasajero
 
 //El sistema deberá permitir realizar reservas de habitaciones, hacer el check-in y check-out de los pasajeros,
 // listar las habitaciones actualmente ocupadas y los datos de los ocupantes, las habitaciones disponibles,
