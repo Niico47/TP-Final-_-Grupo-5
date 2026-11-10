@@ -96,6 +96,12 @@ public class Habitacion {
         this.motivoDisponibilidad = "\n Requiere limpieza posterior a salida de cliente";
     }
 
+    public double calcularCostoEstadia(int cantidadNoches){
+        if (cantidadNoches<=0){
+            return 0;
+        }
+        return this.precioXnoche*cantidadNoches;
+    }
 
 
 
