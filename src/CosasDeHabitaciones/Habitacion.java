@@ -1,5 +1,8 @@
 package CosasDeHabitaciones;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //La disponibilidad va a depender de su su estado es Disponible y de las reservas que los usuarios hallan echo en ella.
 //
 public class Habitacion {
@@ -10,13 +13,45 @@ public class Habitacion {
     boolean reservada;
     double precioXnoche;
 
+    private Map<String,Integer> stockMiniBar;
+    private Map<String,Integer> consumos;
+
+
     public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion, boolean reservada, double precioXnoche) {
         this.numeroHabitacion = numeroHabitacion;
         this.estadoHabitacion = estadoHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.reservada = reservada;
         this.precioXnoche = 500*precioNoche();
+        this.stockMiniBar=new HashMap<>();
+        this.consumos=new HashMap<>();
+        this.reponerMiniBarADefault(); // para q cualquier habitacion nazca con su minibar
     }
+
+    public void reponerMiniBarADefault(){
+        stockMiniBar.clear();
+        int tope=1; // cantidad maxima de unidades
+        if (tipoHabitacion== ETipoHabitacion.DOBLE){
+            tope=2;
+        } else if (tipoHabitacion== ETipoHabitacion.TRIPLE){
+            tope=3;
+        } else if (tipoHabitacion== ETipoHabitacion.SUIT){
+            tope=4;
+            stockMiniBar.put("Champagne",1);
+        }
+
+        stockMiniBar.put("Agua",tope);
+        stockMiniBar.put("Jugo de naranja",tope);
+        stockMiniBar.put("Coca Cola",tope);
+        stockMiniBar.put("Cerveza",tope);
+        stockMiniBar.put("Chocolate",tope);
+        stockMiniBar.put("Papas fritas clasicas",tope);
+        stockMiniBar.put("Barra de cereal",tope);
+
+
+    }
+
+
 
 
 
@@ -102,7 +137,6 @@ public class Habitacion {
         }
         return this.precioXnoche*cantidadNoches;
     }
-    
 
 }
 
