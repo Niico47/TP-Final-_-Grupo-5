@@ -2,8 +2,8 @@ package CosasDeHabitaciones;
 
 //La disponibilidad va a depender de su su estado es Disponible y de las reservas que los usuarios hallan echo en ella.
 //
-public class Habitacion<T> {
-
+public class Habitacion {
+    private String motivoDisponibilidad;
     int numeroHabitacion;
     ETipoHabitacion tipoHabitacion;
     EEstadoHabitacion estadoHabitacion;
@@ -17,6 +17,8 @@ public class Habitacion<T> {
         this.reservada = reservada;
         this.precioXnoche = 500*precioNoche();
     }
+
+
 
     public int getNumeroHabitacion() {
         return numeroHabitacion;
@@ -75,7 +77,16 @@ public class Habitacion<T> {
         return resultado;
     }
 
-    //
+    public boolean estaDisponible(){ //metodo para saber si hay lugar
+        return this.estadoHabitacion== EEstadoHabitacion.DISPONIBLE && !this.reservada;
+    }
+
+
+
+
+
+
+
 
 }
 
