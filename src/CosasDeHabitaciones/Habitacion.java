@@ -37,16 +37,59 @@ public class Habitacion {
             tope=3;
         } else if (tipoHabitacion== ETipoHabitacion.SUIT){
             tope=4;
-            stockMiniBar.put("Champagne",1);
         }
 
-        stockMiniBar.put("Agua",tope);
-        stockMiniBar.put("Jugo de naranja",tope);
-        stockMiniBar.put("Coca Cola",tope);
-        stockMiniBar.put("Cerveza",tope);
-        stockMiniBar.put("Chocolate",tope);
-        stockMiniBar.put("Papas fritas clasicas",tope);
-        stockMiniBar.put("Barra de cereal",tope);
+        stockMiniBar.put("1.Agua",tope);
+        stockMiniBar.put("2.Jugo de naranja",tope);
+        stockMiniBar.put("3.Coca Cola",tope);
+        stockMiniBar.put("4.Cerveza",tope);
+        stockMiniBar.put("5.Chocolate",tope);
+        stockMiniBar.put("6.Papas fritas clasicas",tope);
+        stockMiniBar.put("7.Barra de cereal",tope);
+
+        if (tipoHabitacion==ETipoHabitacion.SUIT){
+            stockMiniBar.put("8.Champagne",1);
+        }
+
+    }
+
+    public void consumirItem(int nroproducto,int cantidad){
+        System.out.printf("\n Productos disponibles en el minibar (Hab)"+numeroHabitacion);
+        for (Map.Entry<String,Integer> entry: stockMiniBar.entrySet()){
+            System.out.println("\n " +entry.getKey()+ ":" +entry.getValue()+ " u.");
+        }
+        System.out.printf("\n=======================================================");
+
+        if (cantidad<=0){
+            System.out.printf("\n Ingrese cantidad mayor a 0.");
+            return;
+        }
+
+        String productoEncontrado=null; // si no encuentra nada queda null
+        for (String clave: stockMiniBar.keySet()){  //keyset lo q hace devuelve un conjunto set q contiene UNICAMENTE las claves
+            if(clave.startsWith(nroproducto+".")){
+            productoEncontrado=clave;
+            break; // para salir del for
+            }
+        }
+
+        if (productoEncontrado==null){
+            System.out.printf("\n Producto no existe.");
+            return;
+        }
+
+        int disponible=stockMiniBar.get(productoEncontrado);
+        if (disponible==0){
+            System.out.printf("\n Sin stock, no hay mas unidades hasta la proxima limpieza");
+        }
+        if (disponible<cantidad){
+            System.out.printf("\n No alcanzan , solo quedan "+disponible+" u.");
+            return;
+        }
+
+        stockMiniBar.put(productoEncontrado,disponible-cantidad); // remplaza el valor q ya existe en el mapa
+        int acumuladoActual=consumos.getOrDefault(productoEncontrado,0);// como va a ser la primera vez q se consume u agua la defaltuvalue va a ser 0
+        consumos.put(productoEncontrado,acumuladoActual+cantidad);// se guarda en connsumos los valores sumados
 
 
     }
