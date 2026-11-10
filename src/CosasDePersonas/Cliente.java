@@ -5,10 +5,30 @@ import java.util.List;
 
 public final class Cliente<T> extends Persona {
     List<String> informacionPasajero;
+    private String usuario;
+    private String contrasenia;
 
-    public Cliente(String nombre,String dni,String localidad,String domicilio){
+    public Cliente(String nombre,String dni,String localidad,String domicilio,String usuario,String contrasenia){
         super(nombre, dni, domicilio, localidad);
         this.informacionPasajero=new ArrayList<>();
+        this.usuario=null;
+        this.contrasenia=null;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public void agregarInfoPasajero(String e){
