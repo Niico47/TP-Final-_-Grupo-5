@@ -1,8 +1,13 @@
 package CosasDePersonas;
 
+import Excepciones.ElementoDuplicadoException;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Staff<T> extends Persona {
+    private List<Cliente> listaClientes = new ArrayList<>();
     int id_Empleado;
     ETipoUsuario puesto;
     double salarioBase;
@@ -34,18 +39,37 @@ public class Staff<T> extends Persona {
         this.puesto = puesto;
     }
 
+    private boolean existeUsuario(String usuario) {
+        for (Cliente c : listaClientes) {
+            if (c.getUsuario().equals(usuario)) {
+                return true; // Se encontró el duplicado
+            }
+        }
+        return false; // El nombre está libre
+    }
     public String crearUsuario(Cliente cliente) {
         Scanner sc = new Scanner(System.in);
         String mensaje = "";
+
         if (puesto == ETipoUsuario.Administrador) {
-            mensaje = "Nombre usuario: ";
-            cliente.setUsuario(sc.nextLine());
-            mensaje = "\nContrasenia: ";
+            System.out.print("Nombre usuario: ");
+            String nuevoUsuario = sc.nextLine();
+
+            // 1. VALIDACIÓN:
+            if (existeUsuario(nuevoUsuario)) {
+                throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
+            }
+
+            cliente.setUsuario(nuevoUsuario);
+
+            System.out.print("\nContrasenia: ");
             cliente.setContrasenia(sc.nextLine());
+
             mensaje = "\nUsuario creado con exito";
         } else {
             mensaje = "\nPara crear usuarios se necesita ser GERENTE";
         }
+
         return mensaje;
     }
 }
