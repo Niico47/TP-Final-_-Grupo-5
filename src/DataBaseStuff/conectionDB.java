@@ -7,7 +7,8 @@ public class conectionDB {
     // URL general del servidor (sin especificar la base de datos)
     private static String URL_SERVIDOR = "jdbc:mysql://localhost:3306/";
     // URL especifica de la base de datos usada
-    private static String URL_DB = "jdbc:mysql://localhost:3306/tpf5";
+    private static String URL_DB = "jdbc:mysql://localhost:3306/tpf5"; //tpf5 (tp final 5)
+    //localhost se usa si estas desde la laptop, cambiar si estas en la PC de la facu
 
     private static String user = "root"; //nombre de usuario
     private static String password = "1234QWER-"; //contrasenia de mysql, cambiar segun la tuya
