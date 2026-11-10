@@ -81,7 +81,14 @@ public class Habitacion {
         return this.estadoHabitacion== EEstadoHabitacion.DISPONIBLE && !this.reservada;
     }
 
-
+    public void realizarCheckIn() throws HabitacionNoDisponibleException { // si el metodo falla lanza esta excepcion
+        if (!estaDisponible()){
+            throw new HabitacionNoDisponibleException("\nLa habitacion "+numeroHabitacion+" no esta disponible");
+        }
+        this.estadoHabitacion=EEstadoHabitacion.OCUPADA;
+        this.reservada=true;
+        this.motivoDisponibilidad="\n Ocupada por cliente.";
+    }
 
 
 
