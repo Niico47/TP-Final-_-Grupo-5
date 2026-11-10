@@ -102,9 +102,7 @@ public class Habitacion {
         }
         return this.precioXnoche*cantidadNoches;
     }
-
-
-
+    
 }
 
 //public class CosasDeHabitaciones.Habitacion<T> {
