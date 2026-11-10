@@ -3,10 +3,7 @@ import CosasDeHabitaciones.Habitacion;
 import CosasDeHabitaciones.Reserva;
 import CosasDePersonas.Cliente;
 import CosasDePersonas.Staff;
-import Excepciones.EClienteNoExiste;
-import Excepciones.EFechasNoValidas;
-import Excepciones.EHabitacionNoDisponible;
-import Excepciones.EHabitacionNoExiste;
+import Excepciones.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -83,12 +80,32 @@ public class Hotel {
         if (fechaCheckOut.isBefore(fechaCheckIn) || fechaCheckOut.isEqual(fechaCheckIn)){
             throw new EFechasNoValidas("ERROR: La fecha de Check Out tiene que ser posterior a la fecha de Check In");
         }
-        boolean fechaValida = checkDisponibilidadFecha(fechaCheckIn, fechaCheckOut, numeroHabitacion);
+        checkDisponibilidadFecha(fechaCheckIn, fechaCheckOut, numeroHabitacion);
     }
 
-    public boolean checkDisponibilidadFecha(LocalDate fechaCheckIn, LocalDate fechaCheckOut, int numeroHabitacion){
-        //Este metodo se fija si la fecha de reserva tiene conflicto con cualquier reserva ya existente en la listaReservas
+    public void checkDisponibilidadFecha(LocalDate fechaCheckIn, LocalDate fechaCheckOut, int numeroHabitacion) throws EFechaNoDisponible {
+        //Se recorren todas las reservas guardadas en el hotel
+        for (Reserva reservaExistente : listaReservas) {
+
+            // Se filtran las reservas que correspondan a la habitacion dada
+            if (reservaExistente.getNumeroHabitacion() == numeroHabitacion) {
+
+                // Si entra al 'if', hay conflicto de fechas
+                if (fechaCheckIn.isBefore(reservaExistente.getGetFechaCheckOut()) && fechaCheckOut.isAfter(reservaExistente.getFechaCheckIn())) {
+                    throw new EFechaNoDisponible
+                            ("La habitación N° " + numeroHabitacion + " ya se encuentra reservada del " +
+                                    reservaExistente.getFechaCheckIn() + " al " + reservaExistente.getGetFechaCheckOut());
+                }
+            }
+        }
+        // Si se llega aca sin lanzar exepcion la fecha esta libre.
     }
+
+
+
+
+
+
 
 
     public String clienteHaceReserva(String dni){
