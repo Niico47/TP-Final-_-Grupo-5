@@ -14,6 +14,8 @@
 
 //  TP FINAL GESTOR DE HOTEL
 
+import CosasDePersonas.Cliente;
+
 void main() {
 
 //habitaciones pasajeros/clientes del hotel, ClasesPersonas.Administrador,ClasesPersonas.Recepcionista, Pasajero
@@ -22,5 +24,12 @@ void main() {
 // listar las habitaciones actualmente ocupadas y los datos de los ocupantes, las habitaciones disponibles,
 // y las habitaciones que no estén disponibles por algún motivo
 // (limpieza, reparación, desinfección, etc. Detallar el motivo).
+
+    Cliente cliente1 = new Cliente<>("Juan", "123", "Buenos Aires", "Luro 1234");
+
+    Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
+
+    System.out.println(hotel1.registrarCliente(cliente1));
+    System.out.println(hotel1.clienteHaceReserva("123"));
 
 }
