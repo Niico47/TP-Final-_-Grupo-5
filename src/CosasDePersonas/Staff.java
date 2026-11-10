@@ -84,11 +84,13 @@ public class Staff<T> extends Persona {
     }
 
     public void eliminarUsuario(Cliente cliente) {
-        for (Cliente c : listaClientes) {
-            if (c.getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
-                listaClientes.remove(cliente);
-                cliente.setContrasenia(null);
-                cliente.setUsuario(null);
+        if(puesto==ETipoUsuario.Administrador) {
+            for (Cliente c : listaClientes) {
+                if (c.getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
+                    listaClientes.remove(cliente);
+                    cliente.setContrasenia(null);
+                    cliente.setUsuario(null);
+                }
             }
         }
     }
@@ -125,5 +127,15 @@ public class Staff<T> extends Persona {
         }
 
         return mensaje;
+    }
+
+    public void eliminarStaff(String usuario){
+        if(puesto==ETipoUsuario.Administrador){
+            for(String e:listaStaff){
+                if(e.equalsIgnoreCase(usuario)){
+                    listaStaff.remove(usuario);
+                }
+            }
+        }
     }
 }
