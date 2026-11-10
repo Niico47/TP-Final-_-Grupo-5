@@ -68,19 +68,27 @@ public class Hotel {
     }
 
 
-    public void crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion){
+    public Reserva crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion){
 
-        Cliente clienteTemp = obtenerClientePorDni(dniCliente);
-        Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion);
+        Cliente clienteTemp = obtenerClientePorDni(dniCliente); //Se verifica que exista el cliente, sino tira una exepcion
+        Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion); //Se verifica que exista la habitacion, sino tira una exepcion
 
+        //Se checkea el estado de la habitacion
         if (habitacionTemp.getEstadoHabitacion() != EEstadoHabitacion.DISPONIBLE){
             throw new EHabitacionNoDisponible("La habitacion no se encuentra disponible: "+habitacionTemp.getEstadoHabitacion().getDescripcion());
         }
 
+        //Se checkea si el usuario es tonto
         if (fechaCheckOut.isBefore(fechaCheckIn) || fechaCheckOut.isEqual(fechaCheckIn)){
             throw new EFechasNoValidas("ERROR: La fecha de Check Out tiene que ser posterior a la fecha de Check In");
         }
+
+        //Se checkea que las fechas dadas no entren en conflicto con otras reservas para la habitacion dada
         checkDisponibilidadFecha(fechaCheckIn, fechaCheckOut, numeroHabitacion);
+
+        Reserva reservaTemp = new Reserva(dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut);
+        listaReservas.add(reservaTemp);
+        return reservaTemp;
     }
 
     public void checkDisponibilidadFecha(LocalDate fechaCheckIn, LocalDate fechaCheckOut, int numeroHabitacion) throws EFechaNoDisponible {
