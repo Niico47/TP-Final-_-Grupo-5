@@ -6,6 +6,7 @@ import CosasDePersonas.Staff;
 import Excepciones.*;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -111,7 +112,84 @@ public class Hotel {
 
 
 
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------- CREACION Y MUESTRA DE CALENDARIO -------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    public void mostrarCalendarioHabitacion (int anio, int mes, int numeroHabitacion) {
 
+        YearMonth yearMonth = YearMonth.of(anio, mes); //Agarro el mes deseado
+        int totalDiasMes = yearMonth.lengthOfMonth(); //Guardo cuantos dias tiene el mes
+
+        // que dia de la semana cae el dia 1 del mes (1 = Lunes, 7 = Domingo)
+        int primerDiaSemana = yearMonth.atDay(1).getDayOfWeek().getValue();
+
+        System.out.println("\n=== CALENDARIO: " + mes + "/" + anio + " (Habitacion " + numeroHabitacion + ") ===\n");
+        System.out.println("  Lu   Ma   Mi   Ju   Vi   Sa   Do  ");
+
+        // poner espacios iniciales antes del primer dia del mes
+        for (int i = 1; i < primerDiaSemana; i++){
+            System.out.print("     ");
+        }
+
+        // se recorre dia por dia el mes
+        for (int dia = 1; dia <= totalDiasMes; dia++) {
+            LocalDate fechaActual = yearMonth.atDay(dia);
+
+            //dentro del bucle for se elije el color del dia segun disponibilidad
+            String color = obtenerColorDia(fechaActual, numeroHabitacion);
+
+            // Esto me lo dio la IA, sirve para que los numeros queden alineados
+            //EL reset sirve para volver al color original, ya que no lo hace solo
+            System.out.printf("%s%4d %s", color, dia, Colores.RESET);
+
+            // salto de linea cada vez que se lega al Domingo
+            if ((dia + primerDiaSemana - 1) % 7 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println("\n========================================================");
+        System.out.println(" ["
+                        +Colores.GRIS+ "Gris" +Colores.RESET+ ": Dias que ya pasaron | "
+                        + Colores.ROJO +"Rojo"+ Colores.RESET +": Reservado | "
+                        + Colores.BLANCO +"Blanco"+ Colores.RESET +": Libre]");
+    }
+
+    private String obtenerColorDia(LocalDate fechaDada, int numeroHabitacion){
+
+        //Devuelve gris si la fecha ya paso
+        if (fechaDada.isBefore(LocalDate.now())) {
+            return Colores.GRIS;
+        }
+        //Si esta reservada para esa fecha devuelve rojo
+        if (estaReservadaEnFecha(numeroHabitacion, fechaDada)) {
+            return Colores.ROJO;
+        }
+        //Si llega a este return, la fecha esta libre y devuelve blanco
+        return Colores.BLANCO;
+    }
+
+    public class Colores { //Colores para el calendario
+        public static final String RESET = "\u001B[0m";
+        public static final String GRIS = "\u001B[90m";
+        public static final String ROJO = "\u001B[31m";
+        public static final String BLANCO = "\u001B[97m";
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------
+
+    //Revisa una fecha especifica de una habitacion para ver si esta reservada ese dia o no.
+    private boolean estaReservadaEnFecha(int numeroHabitacion, LocalDate fecha) {
+        for (Reserva reservaTemp : listaReservas) {
+            if (reservaTemp.getNumeroHabitacion() == numeroHabitacion && reservaTemp.isEstadoReserva()) { //isEstadoReserva verifica que la reserva este activa y no se halla dado de baja
+
+                if ((fecha.isEqual(reservaTemp.getFechaCheckIn()) || fecha.isAfter(reservaTemp.getFechaCheckIn())) && fecha.isBefore(reservaTemp.getGetFechaCheckOut())) {
+                    return true; //si devuelve true es que si esta ocupada ese dia
+                }
+            }
+        }
+        return false; //si devuelve false esta libre
+    }
 
 
 
@@ -120,4 +198,6 @@ public class Hotel {
         Cliente clienteTemp = obtenerClientePorDni(dni);
         return clienteTemp.hacerReserva();
     }
+
+
 }

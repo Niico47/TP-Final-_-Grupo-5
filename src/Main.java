@@ -38,8 +38,10 @@ void main() {
     System.out.println(hotel1.clienteHaceReserva("123"));
     System.out.println(hotel1.registrarHabitacion(habitacion1.getNumeroHabitacion(), habitacion1));
 
-    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 10, 4),LocalDate.of(2026, 10, 16),"123", 1);
+    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 15),"123", 1);
     System.out.println(reserva_registrada.getFechaCheckIn());
-    Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 10, 16),LocalDate.of(2026, 10, 20),"123", 1);
+    Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
     System.out.println(reserva_registrada2.getFechaCheckIn());
+
+    hotel1.mostrarCalendarioHabitacion(2026, 11, 1);
 }
