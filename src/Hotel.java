@@ -7,9 +7,11 @@ import Excepciones.*;
 
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class Hotel {
 
@@ -100,14 +102,31 @@ public class Hotel {
             if (reservaExistente.getNumeroHabitacion() == numeroHabitacion) {
 
                 // Si entra al 'if', hay conflicto de fechas
-                if (fechaCheckIn.isBefore(reservaExistente.getGetFechaCheckOut()) && fechaCheckOut.isAfter(reservaExistente.getFechaCheckIn())) {
+                if (fechaCheckIn.isBefore(reservaExistente.getFechaCheckOut()) && fechaCheckOut.isAfter(reservaExistente.getFechaCheckIn())) {
                     throw new EFechaNoDisponible
                             ("La habitación N° " + numeroHabitacion + " ya se encuentra reservada del " +
-                                    reservaExistente.getFechaCheckIn() + " al " + reservaExistente.getGetFechaCheckOut());
+                                    reservaExistente.getFechaCheckIn() + " al " + reservaExistente.getFechaCheckOut());
                 }
             }
         }
         // Si se llega aca sin lanzar exepcion la fecha esta libre.
+    }
+
+    //Igual que arriba pero no tira exepciones y devueve un boolean
+    public boolean checkDisponibilidadFechaSinExepciones(LocalDate fechaCheckIn, LocalDate fechaCheckOut, int numeroHabitacion) {
+        //Se recorren todas las reservas guardadas en el hotel
+        for (Reserva reservaExistente : listaReservas) {
+
+            // Se filtran las reservas que correspondan a la habitacion dada
+            if (reservaExistente.getNumeroHabitacion() == numeroHabitacion) {
+
+                // Si entra al 'if', hay conflicto de fechas
+                if (fechaCheckIn.isBefore(reservaExistente.getFechaCheckOut()) && fechaCheckOut.isAfter(reservaExistente.getFechaCheckIn())) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -194,7 +213,7 @@ public class Hotel {
         for (Reserva reservaTemp : listaReservas) {
             if (reservaTemp.getNumeroHabitacion() == numeroHabitacion && reservaTemp.isEstadoReserva()) { //isEstadoReserva verifica que la reserva este activa y no se halla dado de baja
 
-                if ((fecha.isEqual(reservaTemp.getFechaCheckIn()) || fecha.isAfter(reservaTemp.getFechaCheckIn())) && fecha.isBefore(reservaTemp.getGetFechaCheckOut())) {
+                if ((fecha.isEqual(reservaTemp.getFechaCheckIn()) || fecha.isAfter(reservaTemp.getFechaCheckIn())) && fecha.isBefore(reservaTemp.getFechaCheckOut())) {
                     return true; //si devuelve true es que si esta ocupada ese dia
                 }
             }
@@ -202,7 +221,60 @@ public class Hotel {
         return false; //si devuelve false esta libre
     }
 
+    //Se agregaran a la lista "disponibles" las habitaciones disponibles para las fechas dadas y se devolvera la lista a mostrarHabitacionesDisponibles
+    public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
 
+        if (fechaCheckOut.isBefore(fechaCheckIn) || fechaCheckOut.isEqual(fechaCheckIn)) {
+            throw new EFechasNoValidas("ERROR: La fecha de Check Out tiene que ser posterior a la fecha de Check In"); }
+
+        List<Habitacion> disponibles = new ArrayList<>();
+
+        for (Habitacion habitacionTemp : listaHabitaciones.values()) {
+
+            if (habitacionTemp.getEstadoHabitacion() == EEstadoHabitacion.DISPONIBLE &&
+                    checkDisponibilidadFechaSinExepciones(fechaCheckIn, fechaCheckOut, habitacionTemp.getNumeroHabitacion())) {
+                disponibles.add(habitacionTemp);
+            }
+        }
+        return disponibles;
+    }
+
+    //El staff puede consultar un periodo de fechas y todas las habitaciones para ese periodo se mostraran.
+    public void mostrarHabitacionesDisponibles(LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
+
+        //Obtenemos la lista de habitaciones disponibles con la siguiente funcion:
+        List<Habitacion> disponibles = obtenerHabitacionesDisponibles(fechaCheckIn, fechaCheckOut);
+
+        //Forma recomendada para obtener la cantidad total de dias entre dos fechas, devuelve un long, asi que lo casteamos a int
+        int cantidadDias = (int) ChronoUnit.DAYS.between(fechaCheckIn, fechaCheckOut);
+
+        System.out.println("\n=================== HABITACIONES DISPONIBLES ===================");
+        System.out.println(" Período: " + fechaCheckIn + " -----> " + fechaCheckOut + "   (" + cantidadDias + " noches)");
+        System.out.println("================================================================");
+
+        if (disponibles.isEmpty()) {
+            //Si no hay habitaciones disponibles entra aca.
+            System.out.println(" No hay habitaciones disponibles para las fechas seleccionadas.");
+        } else {
+            //Alineado con la ayuda de la IA
+            System.out.printf("%-12s %-20s %-18s %-15s%n", "NUMERO", "TIPO", "PRECIO / NOCHE", "MONTO TOTAL");
+            System.out.println("----------------------------------------------------------------");
+
+            for (Habitacion habitacionTemp : disponibles) {
+
+                double montoTotal = cantidadDias*habitacionTemp.getPrecioXnoche();
+
+                //Alineado con la ayuda de la IA
+                System.out.printf("%-12d %-20s $%-17.2f $%-14.2f%n",
+                        habitacionTemp.getNumeroHabitacion(),
+                        habitacionTemp.getTipoHabitacion(),
+                        habitacionTemp.getPrecioXnoche(),
+                        montoTotal
+                            );
+            }
+        }
+        System.out.println("================================================================\n");
+    }
 
 
     public String clienteHaceReserva(String dni){

@@ -31,19 +31,33 @@ void main() {
 
     Cliente cliente1 = new Cliente("Juan", "123", "Buenos Aires", "Luro 1234");
     Habitacion habitacion1 = new Habitacion(1, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
+    Habitacion habitacion2 = new Habitacion(2, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.DOBLE);
+    Habitacion habitacion3 = new Habitacion(3, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SUIT);
+    Habitacion habitacion4 = new Habitacion(4, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.TRIPLE);
+    Habitacion habitacion5 = new Habitacion(5, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
+
 
     Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
 
     System.out.println(hotel1.registrarCliente(cliente1));
     System.out.println(hotel1.clienteHaceReserva("123"));
     System.out.println(hotel1.registrarHabitacion(habitacion1.getNumeroHabitacion(), habitacion1));
+    System.out.println(hotel1.registrarHabitacion(habitacion2.getNumeroHabitacion(), habitacion2));
+    System.out.println(hotel1.registrarHabitacion(habitacion3.getNumeroHabitacion(), habitacion3));
+    System.out.println(hotel1.registrarHabitacion(habitacion4.getNumeroHabitacion(), habitacion4));
+    System.out.println(hotel1.registrarHabitacion(habitacion5.getNumeroHabitacion(), habitacion5));
+
 
     Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 15),"123", 1);
     System.out.println(reserva_registrada.getFechaCheckIn());
     Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
     System.out.println(reserva_registrada2.getFechaCheckIn());
+    Reserva reserva_registrada3 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 3);
 
-    habitacion1.setEstadoHabitacion(EEstadoHabitacion.LIMPIEZA);
+
+//    habitacion1.setEstadoHabitacion(EEstadoHabitacion.LIMPIEZA);
 
     hotel1.mostrarCalendarioHabitacion(2026, 11, 1);
+
+    hotel1.mostrarHabitacionesDisponibles(LocalDate.of(2026, 11, 10), LocalDate.of(2026, 11, 25));
 }

@@ -54,11 +54,11 @@ public class Reserva {
         this.fechaCheckIn = fechaCheckIn;
     }
 
-    public LocalDate getGetFechaCheckOut() {
+    public LocalDate getFechaCheckOut() {
         return fechaCheckOut;
     }
 
-    public void setGetFechaCheckOut(LocalDate getFechaCheckOut) {
+    public void setFechaCheckOut(LocalDate getFechaCheckOut) {
         this.fechaCheckOut = getFechaCheckOut;
     }
 
