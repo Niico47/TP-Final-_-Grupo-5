@@ -43,5 +43,7 @@ void main() {
     Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
     System.out.println(reserva_registrada2.getFechaCheckIn());
 
+    habitacion1.setEstadoHabitacion(EEstadoHabitacion.LIMPIEZA);
+
     hotel1.mostrarCalendarioHabitacion(2026, 11, 1);
 }

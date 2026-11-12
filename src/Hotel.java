@@ -119,6 +119,8 @@ public class Hotel {
 
         YearMonth yearMonth = YearMonth.of(anio, mes); //Agarro el mes deseado
         int totalDiasMes = yearMonth.lengthOfMonth(); //Guardo cuantos dias tiene el mes
+        Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion); //Obtengo la habitacion
+        EEstadoHabitacion estado = habitacionTemp.getEstadoHabitacion(); //Obtengo el estado de la habitacion para usarlo en obtenerColorDia
 
         // que dia de la semana cae el dia 1 del mes (1 = Lunes, 7 = Domingo)
         int primerDiaSemana = yearMonth.atDay(1).getDayOfWeek().getValue();
@@ -136,7 +138,7 @@ public class Hotel {
             LocalDate fechaActual = yearMonth.atDay(dia);
 
             //dentro del bucle for se elije el color del dia segun disponibilidad
-            String color = obtenerColorDia(fechaActual, numeroHabitacion);
+            String color = obtenerColorDia(fechaActual, numeroHabitacion, estado);
 
             // Esto me lo dio la IA, sirve para que los numeros queden alineados
             //EL reset sirve para volver al color original, ya que no lo hace solo
@@ -151,10 +153,11 @@ public class Hotel {
         System.out.println(" ["
                         +Colores.GRIS+ "Gris" +Colores.RESET+ ": Dias que ya pasaron | "
                         + Colores.ROJO +"Rojo"+ Colores.RESET +": Reservado | "
-                        + Colores.BLANCO +"Blanco"+ Colores.RESET +": Libre]");
+                        + Colores.BLANCO +"Blanco"+ Colores.RESET +": Libre | "
+                        + Colores.NARANJA +"Naranja"+ Colores.RESET +": No disponible]");
     }
 
-    private String obtenerColorDia(LocalDate fechaDada, int numeroHabitacion){
+    private String obtenerColorDia(LocalDate fechaDada, int numeroHabitacion, EEstadoHabitacion estado){
 
         //Devuelve gris si la fecha ya paso
         if (fechaDada.isBefore(LocalDate.now())) {
@@ -163,6 +166,13 @@ public class Hotel {
         //Si esta reservada para esa fecha devuelve rojo
         if (estaReservadaEnFecha(numeroHabitacion, fechaDada)) {
             return Colores.ROJO;
+        }
+
+        //Verifica el estado de la habitacion, LIMPIEZA, REPARACION, DESINFECCION devuelve naranja.
+        if (estado == EEstadoHabitacion.LIMPIEZA ||
+                estado == EEstadoHabitacion.REPARACION ||
+                estado == EEstadoHabitacion.DESINFECCION) {
+            return Colores.NARANJA;
         }
         //Si llega a este return, la fecha esta libre y devuelve blanco
         return Colores.BLANCO;
@@ -173,6 +183,7 @@ public class Hotel {
         public static final String GRIS = "\u001B[90m";
         public static final String ROJO = "\u001B[31m";
         public static final String BLANCO = "\u001B[97m";
+        public static final String NARANJA = "\u001B[38;5;208m";
     }
     //--------------------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------------------
