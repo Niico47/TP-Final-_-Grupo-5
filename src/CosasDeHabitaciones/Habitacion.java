@@ -10,18 +10,17 @@ public class Habitacion {
     int numeroHabitacion;
     ETipoHabitacion tipoHabitacion;
     EEstadoHabitacion estadoHabitacion;
-    boolean reservada;
+
     double precioXnoche;
 
     private Map<String,Integer> stockMiniBar;
     private Map<String,Integer> consumos;
 
 
-    public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion, boolean reservada, double precioXnoche) {
+    public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion) {
         this.numeroHabitacion = numeroHabitacion;
         this.estadoHabitacion = estadoHabitacion;
         this.tipoHabitacion = tipoHabitacion;
-        this.reservada = reservada;
         this.precioXnoche = 500*precioNoche();
         this.stockMiniBar=new HashMap<>();
         this.consumos=new HashMap<>();
@@ -93,7 +92,7 @@ public class Habitacion {
     }
 
     public void realizarLimpieza(){
-        System.out.printf("\n Iniciando limpieza de habitacion "+numeroHabitacion+);
+        System.out.printf("\n Iniciando limpieza de habitacion "+numeroHabitacion);
         reponerMiniBarADefault();
         System.out.printf("\n Limpieza finalizada. ");
     }
@@ -124,14 +123,6 @@ public class Habitacion {
         this.estadoHabitacion = estadoHabitacion;
     }
 
-    public boolean isReservada() {
-        return reservada;
-    }
-
-    public void setReservada(boolean reservada) {
-        this.reservada = reservada;
-    }
-
     public double getPrecioXnoche() {
         return precioXnoche;
     }
@@ -158,21 +149,18 @@ public class Habitacion {
     }
 
     public boolean estaDisponible(){ //metodo para saber si hay lugar
-        return this.estadoHabitacion== EEstadoHabitacion.DISPONIBLE && !this.reservada;
-    }
+        return this.estadoHabitacion== EEstadoHabitacion.DISPONIBLE;}
 
     public void realizarCheckIn() throws HabitacionNoDisponibleException { // si el metodo falla lanza esta excepcion
         if (!estaDisponible()){
             throw new HabitacionNoDisponibleException("\nLa habitacion "+numeroHabitacion+" no esta disponible");
         }
         this.estadoHabitacion=EEstadoHabitacion.OCUPADA;
-        this.reservada=true;
         this.motivoDisponibilidad="\n Ocupada por cliente.";
     }
 
     public void realizarCheckOut() {
         this.estadoHabitacion = EEstadoHabitacion.LIMPIEZA;
-        this.reservada = false;
         this.motivoDisponibilidad = "\n Requiere limpieza posterior a salida de cliente";
     }
 

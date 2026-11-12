@@ -64,8 +64,8 @@ public class Staff<T> extends Persona {
 
             cliente.setUsuario(nuevoUsuario);
 
-            System.out.print("\nContrasenia: ");
-            cliente.setContrasenia(sc.nextLine());
+//            System.out.print("\nContrasenia: ");
+//            cliente.setContrasenia(sc.nextLine());
             listaClientes.add(cliente);
             mensaje = "\nUsuario creado con exito";
         } else {
@@ -88,7 +88,7 @@ public class Staff<T> extends Persona {
             for (Cliente c : listaClientes) {
                 if (c.getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
                     listaClientes.remove(cliente);
-                    cliente.setContrasenia(null);
+//                    cliente.setContrasenia(null);
                     cliente.setUsuario(null);
                 }
             }
