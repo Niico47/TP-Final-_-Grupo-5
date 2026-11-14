@@ -130,7 +130,7 @@ public class Habitacion {
     public void setPrecioXnoche(double precioXnoche) {
         this.precioXnoche = precioXnoche;
     }
-
+    //devuelve un multiplicador al precio base segun el tipo de habitacion
     public double precioNoche(){
         double resultado=0;
         if(tipoHabitacion== ETipoHabitacion.SINGLE){

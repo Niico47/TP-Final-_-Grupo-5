@@ -36,7 +36,7 @@ public final class Cliente extends Persona {
     public void agregarInfoPasajero(String e){
         informacionPasajero.add(e);
     }
-
+    //Devuelve una lista de informacion del pasajero en el hotel
     public String verInfoPasajero(){
         String mensaje="";
         if(informacionPasajero.isEmpty()){
@@ -47,7 +47,6 @@ public final class Cliente extends Persona {
         }
         return mensaje;
     }
-
     public String hacerReserva(){
         return "Reseva hecha, cuarto numero 4 ahora acupado";
     }

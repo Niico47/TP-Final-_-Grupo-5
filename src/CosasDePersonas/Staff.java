@@ -74,7 +74,7 @@ public class Staff<T> extends Persona {
 
         return mensaje;
     }
-
+    //Devuelve lista de usuarios creados
     public StringBuilder usuariosCreados() {
         StringBuilder mensaje = new StringBuilder();
         for (int i = 0; i < listaClientes.size(); i++) {
@@ -82,7 +82,7 @@ public class Staff<T> extends Persona {
         }
         return mensaje;
     }
-
+    //Elimina usuario de un cliente
     public void eliminarUsuario(Cliente cliente) {
         if(puesto==ETipoUsuario.Administrador) {
             for (Cliente c : listaClientes) {
@@ -94,7 +94,7 @@ public class Staff<T> extends Persona {
             }
         }
     }
-
+    //busca un usuario dentro del staff
     private boolean existeUsuarioStaff(String usuario) {
         for (String staff : listaStaff) {
             if (staff.equals(usuario)) {
@@ -103,7 +103,7 @@ public class Staff<T> extends Persona {
         }
         return false; // El nombre está libre
     }
-
+    //crea usuario de staff
     public String crearUsuarioStaff() {
         Scanner sc = new Scanner(System.in);
         String mensaje = "";
@@ -113,7 +113,7 @@ public class Staff<T> extends Persona {
             System.out.print("Nombre usuario: ");
             nuevoUsuario = sc.nextLine();
 
-            // 1. VALIDACIÓN:
+            // 1. VALIDACIÓN que no haya usuarios repetidos
             if (existeUsuario(nuevoUsuario)) {
                 throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
             }
@@ -128,7 +128,7 @@ public class Staff<T> extends Persona {
 
         return mensaje;
     }
-
+    //elimina usuario del staff
     public void eliminarStaff(String usuario){
         if(puesto==ETipoUsuario.Administrador){
             for(String e:listaStaff){
@@ -138,7 +138,7 @@ public class Staff<T> extends Persona {
             }
         }
     }
-
+    //metodo para calcular los salarios del staff, devuelve un multiplicador que varia el salario base
     public int salarioStaff(){
         int resultado=0;
         if(puesto==ETipoUsuario.Administrador){
