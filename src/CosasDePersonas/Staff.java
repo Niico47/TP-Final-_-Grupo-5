@@ -10,14 +10,14 @@ public class Staff<T> extends Persona {
     private List<Cliente> listaClientes = new ArrayList<>();
     private List<String> listaStaff = new ArrayList<>();
     int id_Empleado;
-    ETipoUsuario puesto;
+    ETipoUsuario puesto;//recepcionista o administrador
     double salarioBase;
 
     public Staff(String nombre, String dni, String domicilio, String localidad, int id_Empleado, ETipoUsuario puesto, double salarioBase) {
         super(nombre, dni, domicilio, localidad);
         this.id_Empleado = id_Empleado;
         this.puesto = puesto;
-        this.salarioBase = salarioBase;
+        this.salarioBase = 300*salarioStaff();//el salario base es 300, se multiplica por el un valor segun el puesto del empleado
     }
 
     public int getId_Empleado() {
@@ -48,24 +48,24 @@ public class Staff<T> extends Persona {
         }
         return false; // El nombre está libre
     }
-
-    public String crearUsuario(Cliente cliente) {
+    //1.Este metodo crea un usuario y contraseña al cliente para entrar al sistema
+    public String crearUsuarioCliente(Cliente cliente) {
         Scanner sc = new Scanner(System.in);
         String mensaje = "";
-
+        //2.Esto solo lo puede hacer el administrador, aqui lo validamos
         if (puesto == ETipoUsuario.Administrador) {
             System.out.print("Nombre usuario: ");
             String nuevoUsuario = sc.nextLine();
 
-            // 1. VALIDACIÓN:
+            // 3. VALIDACIÓN de que no existan dos clientes con el mismo usuario
             if (existeUsuario(nuevoUsuario)) {
                 throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
             }
-
+            //El cliente siempre tiene usuario y contrasenia null hasta que se cambia
             cliente.setUsuario(nuevoUsuario);
 
-//            System.out.print("\nContrasenia: ");
-//            cliente.setContrasenia(sc.nextLine());
+            System.out.print("\nContrasenia: ");
+            cliente.setContrasenia(sc.nextLine());
             listaClientes.add(cliente);
             mensaje = "\nUsuario creado con exito";
         } else {
@@ -88,7 +88,7 @@ public class Staff<T> extends Persona {
             for (Cliente c : listaClientes) {
                 if (c.getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
                     listaClientes.remove(cliente);
-//                    cliente.setContrasenia(null);
+                    cliente.setContrasenia(null);
                     cliente.setUsuario(null);
                 }
             }
@@ -138,5 +138,23 @@ public class Staff<T> extends Persona {
             }
         }
     }
+
+    public int salarioStaff(){
+        int resultado=0;
+        if(puesto==ETipoUsuario.Administrador){
+            resultado=4;
+        }
+        if(puesto==ETipoUsuario.Recepcionista){
+            resultado=3;
+        }
+        if(puesto==ETipoUsuario.mantenimiento){
+            resultado=2;
+        }
+        if(puesto==ETipoUsuario.Limpieza){
+            resultado=1;
+        }
+        return resultado;
+    }
+
 
 }
