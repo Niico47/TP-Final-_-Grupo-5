@@ -47,11 +47,4 @@ public final class Cliente extends Persona {
         }
         return mensaje;
     }
-    public String hacerReserva(){
-        return "Reseva hecha, cuarto numero 4 ahora acupado";
-    }
-
-    public String cancelarReserva(){
-        return "Reseva cancelada, cuarto numero 4 ahora libre";
-    }
 }

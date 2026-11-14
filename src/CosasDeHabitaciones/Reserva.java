@@ -1,6 +1,7 @@
 package CosasDeHabitaciones;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Reserva {
 
@@ -68,5 +69,29 @@ public class Reserva {
 
     public void setEstadoReserva(boolean estadoReserva) {
         this.estadoReserva = estadoReserva;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Reserva reserva = (Reserva) o;
+        return idReserva == reserva.idReserva;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idReserva);
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva:" +
+                "idReserva=" + idReserva +
+                ", dniCliente='" + dniCliente + '\'' +
+                ", numeroHabitacion=" + numeroHabitacion +
+                ", fechaCheckIn=" + fechaCheckIn +
+                ", fechaCheckOut=" + fechaCheckOut +
+                ", estadoReserva=" + estadoReserva +
+                '}';
     }
 }

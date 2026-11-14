@@ -129,8 +129,6 @@ public class Hotel {
         return true;
     }
 
-
-
     //--------------------------------------------------------------------------------------------------------------------------------------
     //--------------------------- CREACION Y MUESTRA DE CALENDARIO -------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------------------
@@ -208,7 +206,7 @@ public class Hotel {
     //--------------------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------------------------------------------------------------------------------------------------------
 
-    //Revisa una fecha especifica de una habitacion para ver si esta reservada ese dia o no.
+    //Revisa una fecha especifica de una habitacion para ver si esta reservada ese dia o no (Se usa para el calendario).
     private boolean estaReservadaEnFecha(int numeroHabitacion, LocalDate fecha) {
         for (Reserva reservaTemp : listaReservas) {
             if (reservaTemp.getNumeroHabitacion() == numeroHabitacion && reservaTemp.isEstadoReserva()) { //isEstadoReserva verifica que la reserva este activa y no se halla dado de baja
@@ -276,10 +274,41 @@ public class Hotel {
         System.out.println("================================================================\n");
     }
 
+    //Si ya nos encontramos dentro de la fecha de una reserva activa, y la habitacion y cliente dado son los correctos, se procede a hacer el CheckIn (EEstadoHabitacion.OCUPADA)
+    public Reserva hacerCheckIn(String dniCliente, int numeroHabitacion) throws ENoExisteReservaParaFecha{
 
-    public String clienteHaceReserva(String dni){
-        Cliente clienteTemp = obtenerClientePorDni(dni);
-        return clienteTemp.hacerReserva();
+        LocalDate fechaHOY = LocalDate.now();
+
+        for (Reserva reservaTemp : listaReservas) {
+            if (reservaTemp.getNumeroHabitacion() == numeroHabitacion && reservaTemp.isEstadoReserva()) { //isEstadoReserva verifica que la reserva este activa y no se halla dado de baja
+
+                if ((fechaHOY.isEqual(reservaTemp.getFechaCheckIn()) || fechaHOY.isAfter(reservaTemp.getFechaCheckIn())) && fechaHOY.isBefore(reservaTemp.getFechaCheckOut())) {
+                    if (dniCliente.equals(reservaTemp.getDniCliente())) {
+                        Habitacion habitacionTemp = listaHabitaciones.get(numeroHabitacion);
+                        habitacionTemp.setEstadoHabitacion(EEstadoHabitacion.OCUPADA);
+                        return reservaTemp;
+                    }
+                }
+            }
+        }
+        throw new ENoExisteReservaParaFecha("No existe una reserva para este cliente en esta habitacion para hoy.");
+    }
+
+    public Reserva hacerCheckOut(String dniCliente, int numeroHabitacion) throws ENoExisteReservaParaFecha{
+        for (Reserva reservaTemp : listaReservas) {
+            if (reservaTemp.getNumeroHabitacion() == numeroHabitacion && reservaTemp.isEstadoReserva()) { //isEstadoReserva verifica que la reserva este activa y no se halla dado de baja
+
+                    if (dniCliente.equals(reservaTemp.getDniCliente())) {
+                        Habitacion habitacionTemp = listaHabitaciones.get(numeroHabitacion);
+                        if (habitacionTemp.getEstadoHabitacion() == EEstadoHabitacion.OCUPADA) {
+                            habitacionTemp.setEstadoHabitacion(EEstadoHabitacion.DISPONIBLE);
+                            reservaTemp.setEstadoReserva(false);
+                            return reservaTemp;
+                        }
+                    }
+                }
+        }
+        throw new ENoExisteReservaParaFecha("No existe una reserva activa para este cliente en esta habitacion para hoy.");
     }
 
 

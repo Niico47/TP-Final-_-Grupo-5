@@ -40,7 +40,6 @@ void main() {
     Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
 
     System.out.println(hotel1.registrarCliente(cliente1));
-    System.out.println(hotel1.clienteHaceReserva("123"));
     System.out.println(hotel1.registrarHabitacion(habitacion1.getNumeroHabitacion(), habitacion1));
     System.out.println(hotel1.registrarHabitacion(habitacion2.getNumeroHabitacion(), habitacion2));
     System.out.println(hotel1.registrarHabitacion(habitacion3.getNumeroHabitacion(), habitacion3));
@@ -48,7 +47,7 @@ void main() {
     System.out.println(hotel1.registrarHabitacion(habitacion5.getNumeroHabitacion(), habitacion5));
 
 
-    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 15),"123", 1);
+    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 18),"123", 1);
     System.out.println(reserva_registrada.getFechaCheckIn());
     Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
     System.out.println(reserva_registrada2.getFechaCheckIn());
@@ -60,4 +59,7 @@ void main() {
     hotel1.mostrarCalendarioHabitacion(2026, 11, 1);
 
     hotel1.mostrarHabitacionesDisponibles(LocalDate.of(2026, 11, 10), LocalDate.of(2026, 11, 25));
+
+    System.out.println(hotel1.hacerCheckIn("123", 1));
+    System.out.println(hotel1.hacerCheckOut("123", 1));
 }
