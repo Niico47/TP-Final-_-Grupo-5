@@ -1,6 +1,8 @@
 import CosasDeHabitaciones.Habitacion;
 import CosasDePersonas.Cliente;
 
+import java.time.LocalDate;
+
 public class GestoraAdministrador {
 
     private Hotel hotel;
@@ -22,6 +24,18 @@ public class GestoraAdministrador {
         mensaje=hotel.registrarHabitacion(habitacion.getNumeroHabitacion(),habitacion);
 
         return mensaje;
+    }
+
+    //Consultar habitaciones disponibles
+    public void consultarDisponibilidad(LocalDate checkIn, LocalDate checkOut){
+
+        hotel.mostrarHabitacionesDisponibles(checkIn,checkOut);
+    }
+
+    //Consultar Calendario
+    public void consultarCalendario(int anio,int mes,int numeroHabitacion){
+
+        hotel.mostrarCalendarioHabitacion(anio,mes,numeroHabitacion);
     }
 
     
