@@ -26,6 +26,28 @@ import java.util.Scanner;
 
             System.out.println("\nIngrese contrasenia: ");
             String contrasenia=sc.nextLine();
-            Staff empleado=hotel.regis
+
+            Staff empleado=hotel.validarLogin(dni,contrasenia);
+
+            if(empleado==null){
+                System.out.println("\nUsuario o contrasenia incorrectos");
+            }else {
+
+                System.out.println("\nBienvenidos al sistema");
+
+                //se determina el menu segun el tipo de empleado
+
+                switch(empleado.getPuesto()){}
+            }
+        }
+
+        private void menuRecepcionista(){
+            String mensaje="";
+            mensaje="\n=====Menu Recepcionista=====" +
+                    "\n1.RegistrarReservas." +
+                    "\n2.Realizar CheckIn." +
+                    "\n3.Realizar CheckOut" +
+                    "\n4.Consultar Habitaciones disponibles" +
+                    "\n======================================";
         }
     }
