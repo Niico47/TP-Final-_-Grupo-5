@@ -7,18 +7,25 @@ import java.util.Scanner;
 
 public class Staff<T> extends Persona {
     public static int contador;
-    private List<Cliente> listaClientes = new ArrayList<>();
-    private List<String> listaStaff = new ArrayList<>();
     int id_Empleado;
     private ETipoUsuario puesto;//recepcionista o administrador
     private double salarioBase;
     private String contrasenia;
 
-    public Staff(String nombre, String dni, String domicilio, String localidad, int id_Empleado, ETipoUsuario puesto, double salarioBase) {
+    public Staff(String nombre, String dni,String contrasenia, String domicilio, String localidad, int id_Empleado, ETipoUsuario puesto, double salarioBase) {
         super(nombre, dni, domicilio, localidad);
         this.id_Empleado = id_Empleado;
         this.puesto = puesto;
+        this.contrasenia=contrasenia;
         this.salarioBase = 300*salarioStaff();//el salario base es 300, se multiplica por el un valor segun el puesto del empleado
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     public int getId_Empleado() {
