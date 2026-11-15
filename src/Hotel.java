@@ -338,19 +338,19 @@ public class Hotel {
         throw new ENoExisteReservaParaFecha("No existe una reserva activa para este cliente en esta habitacion para hoy.");
     }
 
-    public Staff validarLogin(String dni,String contrasenia){
+    public Staff validarLogin(String dni,String contrasenia) throws EErrorLogIn{
 
         for(Staff empleado:listaStaff){
             //comprueba si coincide el dni y la conrtrasenia
             if (empleado.getDni().equals(dni) && empleado.getContrasenia().equals(contrasenia)) {
-
                 return empleado;
             }
         }
-
         //si no encuentra coincidencias
-        return null;
+        throw new EErrorLogIn("\nERROR: Usuario o contrasenia incorrectos.");
     }
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }

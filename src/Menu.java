@@ -1,4 +1,5 @@
 import CosasDePersonas.Staff;
+import Excepciones.EErrorLogIn;
 import jdk.swing.interop.SwingInterOpUtils;
 
 import java.util.Scanner;
@@ -18,7 +19,7 @@ import java.util.Scanner;
         }
 
         //inicio de sesion
-        public void iniciarSesion(){
+        public void iniciarSesion() {
             System.out.println("------------INICIO DE SESION-------------");
 
             System.out.println("\nIngrese dni: ");
@@ -27,30 +28,27 @@ import java.util.Scanner;
             System.out.println("\nIngrese contrasenia: ");
             String contrasenia=sc.nextLine();
 
-            Staff empleado=hotel.validarLogin(dni,contrasenia);
-
-            if(empleado==null){
-                System.out.println("\nUsuario o contrasenia incorrectos");
-            }else {
+            try {
+                Staff empleado=hotel.validarLogin(dni,contrasenia);
 
                 System.out.println("\nBienvenidos al sistema");
 
                 //se determina el menu segun el tipo de empleado
-
                 switch (empleado.getPuesto()) {
                     case Administrador -> {
                         menuAdministrador();
-                        break;
+//                        break; El breack no es necesatrio ema ciando se usa la flechita ->
                     }
                     case Recepcionista -> {
                         menuRecepcionista();
-                        break;
                     }
                     default -> {
                         System.out.println("\nTipo de empleado no reconocido");
-                        break;
                     }
                 }
+
+            } catch (EErrorLogIn e) {
+                System.out.println(e.getMessage());
             }
         }
 
