@@ -50,4 +50,13 @@ import java.util.Scanner;
                     "\n4.Consultar Habitaciones disponibles" +
                     "\n======================================";
         }
+
+        private void menuAdministrador(){
+            String mensaje="";
+            mensaje="\n===== Menu Administrador =====" +
+                    "\n1.Registrar Clientes" +
+                    "\n2.Registrar Habitaciones" +
+                    "\n3.Consultar HAbitaciones disponibles" +
+                    "\n4.Consultar calendario de habitaciones";
+        }
     }
