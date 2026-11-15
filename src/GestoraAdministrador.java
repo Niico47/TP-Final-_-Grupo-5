@@ -38,5 +38,4 @@ public class GestoraAdministrador {
         hotel.mostrarCalendarioHabitacion(anio,mes,numeroHabitacion);
     }
 
-    
 }
