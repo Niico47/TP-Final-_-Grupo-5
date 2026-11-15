@@ -31,6 +31,23 @@ public class Hotel {
         this.listaReservas = new ArrayList<Reserva>();
     }
 
+    public Reserva obtenerReservaPorID(int idReserva){
+        for (Reserva reserva:listaReservas){
+            if (reserva.getIdReserva()==idReserva){
+                return reserva;
+            }
+        }
+        throw new ENoExisteReservaParaFecha("No existe la reserva con id: " +idReserva);
+    }
+
+    public double calcularCostoReserva(int idReserva){// Calcula el costo total de la estadía correspondiente a una reserva
+        Reserva reservaTemp=obtenerReservaPorID(idReserva);
+        Habitacion habitacionTemp=obtenerHabitacionPorId(reservaTemp.getNumeroHabitacion());
+        int cantnoches=(int) ChronoUnit.DAYS.between(reservaTemp.getFechaCheckIn(),reservaTemp.getFechaCheckOut());// Calcula la diferencia exacta de noches entre la fecha de ingreso y la de salida
+        return habitacionTemp.costoFinal(cantnoches);
+    }
+
+
     public String registrarCliente(Cliente clienteDado){
         if (!listaClientes.add(clienteDado)){
             return "El cliente ya existe en la lista o no se pudo resistrar.\n";
@@ -321,18 +338,23 @@ public class Hotel {
         throw new ENoExisteReservaParaFecha("No existe una reserva activa para este cliente en esta habitacion para hoy.");
     }
 
-    public Staff validarLogin(String dni,String contrasenia){
+    public Staff validarLogin(String dni,String contrasenia) throws EErrorLogIn{
 
         for(Staff empleado:listaStaff){
             //comprueba si coincide el dni y la conrtrasenia
+<<<<<<< HEAD
             if(empleado.getDni().equals(dni) &&  empleado.getContrasenia().equals(contrasenia)){
+=======
+            if (empleado.getDni().equals(dni) && empleado.getContrasenia().equals(contrasenia)) {
+>>>>>>> ccf11b47d18ee7e79b08a2a7300682c8bb5fd75a
                 return empleado;
             }
         }
-
         //si no encuentra coincidencias
-        return null;
+        throw new EErrorLogIn("\nERROR: Usuario o contrasenia incorrectos.");
     }
 
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 }
