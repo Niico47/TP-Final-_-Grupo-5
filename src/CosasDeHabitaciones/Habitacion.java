@@ -92,6 +92,7 @@ public class Habitacion {
         int disponible=stockMiniBar.get(productoEncontrado);
         if (disponible==0){
             System.out.printf("\n Sin stock, no hay mas unidades hasta la proxima limpieza");
+            return;
         }
         if (disponible<cantidad){
             System.out.printf("\n No alcanzan , solo quedan "+disponible+" u.");
@@ -182,6 +183,44 @@ public class Habitacion {
         }
         return this.precioXnoche*cantidadNoches;
     }
+
+
+    public String getMotivoDisponibilidad() {
+        return motivoDisponibilidad;
+    }
+
+    public void cambiarESTADOhabitacion(EEstadoHabitacion nuevoEstado,String motivo){
+        if (nuevoEstado==null){
+            throw new IllegalArgumentException("El estado no puede ser null");
+        }
+
+        boolean requiereMotivo=nuevoEstado==EEstadoHabitacion.LIMPIEZA|| nuevoEstado==EEstadoHabitacion.REPARACION||nuevoEstado==EEstadoHabitacion.DESINFECCION;
+        if (requiereMotivo &&(motivo==null)){
+            throw new IllegalArgumentException("Se debe detallar el motivo.");
+        }
+
+        if (this.estadoHabitacion==EEstadoHabitacion.OCUPADA && requiereMotivo){
+            throw new IllegalArgumentException("La habitacion " +numeroHabitacion+ " esta ocupada, primero hacer check out.");
+        }
+
+        this.estadoHabitacion=nuevoEstado;
+
+        if (requiereMotivo){
+            this.motivoDisponibilidad=motivo;
+        } else if (nuevoEstado==EEstadoHabitacion.OCUPADA) {
+            this.motivoDisponibilidad="Ocupado por cliente";
+        }else {
+            this.motivoDisponibilidad=null ;
+        }
+
+    }
+
+
+
+
+
+
+
 
 }
 
