@@ -40,6 +40,13 @@ public class Hotel {
         throw new ENoExisteReservaParaFecha("No existe la reserva con id: " +idReserva);
     }
 
+    public double calcularCostoReserva(int idReserva){
+        Reserva reservaTemp=obtenerReservaPorID(idReserva);
+        Habitacion habitacionTemp=obtenerHabitacionPorId(reservaTemp.getNumeroHabitacion());
+        int cantnoches=(int) ChronoUnit.DAYS.between(reservaTemp.getFechaCheckIn(),reservaTemp.getFechaCheckOut());
+        return habitacionTemp.calcularCostoEstadia(cantnoches);
+    }
+
 
     public String registrarCliente(Cliente clienteDado){
         if (!listaClientes.add(clienteDado)){
