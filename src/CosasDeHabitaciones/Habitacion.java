@@ -16,7 +16,7 @@ public class Habitacion {
     private Map<String,Integer> stockMiniBar;
     private Map<String,Integer> consumos;
 
-    private static final Map<String,double>PRECIOS_MINIBAR=Map.of(
+    private static final Map<String, Double>PRECIOS_MINIBAR=Map.of( //precios, las claves son las mismas que usa stock
             "1.Agua",1500.0,
             "2.Jugo de naranja", 2000.0,
             "3.Coca Cola", 2500.0,
