@@ -16,6 +16,18 @@ public class Habitacion {
     private Map<String,Integer> stockMiniBar;
     private Map<String,Integer> consumos;
 
+    private static final Map<String,double>PRECIOS_MINIBAR=Map.of(
+            "1.Agua",1500.0,
+            "2.Jugo de naranja", 2000.0,
+            "3.Coca Cola", 2500.0,
+            "4.Cerveza", 3500.0,
+            "5.Chocolate", 2800.0,
+            "6.Papas fritas clasicas", 3000.0,
+            "7.Barra de cereal", 1800.0,
+            "8.Champagne", 25000.0
+    );
+
+
 
     public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion) {
         this.numeroHabitacion = numeroHabitacion;
