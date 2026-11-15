@@ -42,10 +42,14 @@ import java.util.Scanner;
                         menuAdministrador();
                         break;
                     }
-                    case Recepcionista -> menuRecepcionista();
-                    break;
-                    default -> System.out.println("\nTipo de empleado no reconocido");
-                break;
+                    case Recepcionista -> {
+                        menuRecepcionista();
+                        break;
+                    }
+                    default -> {
+                        System.out.println("\nTipo de empleado no reconocido");
+                        break;
+                    }
                 }
             }
         }
