@@ -321,5 +321,19 @@ public class Hotel {
         throw new ENoExisteReservaParaFecha("No existe una reserva activa para este cliente en esta habitacion para hoy.");
     }
 
+    public Staff validarLogin(String dni,String contrasenia){
+
+        for(Staff empleado:listaStaff){
+            //comprueba si coincide el dni y la conrtrasenia
+            if(empleado.getDni().equals(dni)) && empleado.getContrasenia().equals(contrasenia)){
+
+                return empleado;
+            }
+        }
+
+        //si no encuentra coincidencias
+        return null;
+    }
+
 
 }
