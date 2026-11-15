@@ -235,7 +235,17 @@ public class Habitacion {
         return estadoHabitacion == EEstadoHabitacion.LIMPIEZA || estadoHabitacion = EEstadoHabitacion.REPARACION || estadoHabitacion = EEstadoHabitacion.DESINFECCION;
     }
 
+    public void finalizarLimpieza(){
+        if (estadoHabitacion!=EEstadoHabitacion.LIMPIEZA){
+            throw new IllegalArgumentException("La habitacion "+numeroHabitacion+ " no esta en limpieza. ");
+        }
+        reponerMiniBarADefault();
+        habilitarHabitacion();
+    }
 
+
+
+    
 
 
 
