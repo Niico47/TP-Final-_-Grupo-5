@@ -37,7 +37,16 @@ import java.util.Scanner;
 
                 //se determina el menu segun el tipo de empleado
 
-                switch(empleado.getPuesto()){}
+                switch (empleado.getPuesto()) {
+                    case Administrador -> {
+                        menuAdministrador();
+                        break;
+                    }
+                    case Recepcionista -> menuRecepcionista();
+                    break;
+                    default -> System.out.println("\nTipo de empleado no reconocido");
+                break;
+                }
             }
         }
 
