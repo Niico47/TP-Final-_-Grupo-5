@@ -1,5 +1,4 @@
 package CosasDePersonas;
-
 import Excepciones.ElementoDuplicadoException;
 
 import java.util.ArrayList;

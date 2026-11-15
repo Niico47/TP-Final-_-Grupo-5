@@ -62,6 +62,14 @@ public class Hotel {
         throw new EClienteNoExiste();
     }
 
+    public Staff obtenerStaffPorDni(String dni) throws EClienteNoExiste {
+        for (Staff staffTemp : listaStaff) {
+            if (staffTemp.getDni().equals(dni))
+                return staffTemp; // Lo encontró, devuelve el objeto
+        }
+        throw new EClienteNoExiste();
+    }
+
     public Habitacion obtenerHabitacionPorId(int numeroHabitacion) throws EHabitacionNoExiste {
         Habitacion habitacionTemp = listaHabitaciones.get(numeroHabitacion);
         if (habitacionTemp == null) {
