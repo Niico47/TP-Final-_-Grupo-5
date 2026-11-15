@@ -2,6 +2,7 @@ package CosasDeHabitaciones;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 //La disponibilidad va a depender de su su estado es Disponible y de las reservas que los usuarios hallan echo en ella.
 //
@@ -193,18 +194,18 @@ public class Habitacion {
         if (nuevoEstado == null) {
             throw new IllegalArgumentException("El estado no puede ser null");
         }
-
+        // Determina si el nuevo estado deja la habitación fuera de servicio, caso en el que es obligatorio justificarlo
         boolean requiereMotivo = nuevoEstado == EEstadoHabitacion.LIMPIEZA || nuevoEstado == EEstadoHabitacion.REPARACION || nuevoEstado == EEstadoHabitacion.DESINFECCION;
         if (requiereMotivo && (motivo == null)) {
             throw new IllegalArgumentException("Se debe detallar el motivo.");
         }
-
+        // Evita mandar a limpieza, reparación o desinfección una habitación que todavía tiene un huésped adentro
         if (this.estadoHabitacion == EEstadoHabitacion.OCUPADA && requiereMotivo) {
             throw new IllegalArgumentException("La habitacion " + numeroHabitacion + " esta ocupada, primero hacer check out.");
         }
 
         this.estadoHabitacion = nuevoEstado;
-
+        // Asigna el motivo correspondiente según el nuevo estado
         if (requiereMotivo) {
             this.motivoDisponibilidad = motivo;
         } else if (nuevoEstado == EEstadoHabitacion.OCUPADA) {
@@ -232,24 +233,59 @@ public class Habitacion {
     }
 
     public boolean estaNoDisponibleXmotivo() { // evuelve true si no esta disponible por limpieza, reparacion o desinfeccion.
-        return estadoHabitacion == EEstadoHabitacion.LIMPIEZA || estadoHabitacion = EEstadoHabitacion.REPARACION || estadoHabitacion = EEstadoHabitacion.DESINFECCION;
+        return estadoHabitacion == EEstadoHabitacion.LIMPIEZA || estadoHabitacion == EEstadoHabitacion.REPARACION || estadoHabitacion == EEstadoHabitacion.DESINFECCION;
     }
 
-    public void finalizarLimpieza(){
-        if (estadoHabitacion!=EEstadoHabitacion.LIMPIEZA){
-            throw new IllegalArgumentException("La habitacion "+numeroHabitacion+ " no esta en limpieza. ");
+    public void finalizarLimpieza() {
+        if (estadoHabitacion != EEstadoHabitacion.LIMPIEZA) {
+            throw new IllegalArgumentException("La habitacion " + numeroHabitacion + " no esta en limpieza. ");
         }
         reponerMiniBarADefault();
         habilitarHabitacion();
     }
 
+    public double calcularTotalConsumos() {
+        double total = 0;
+
+        for (Map.Entry<String, Integer> entry : consumos.entrySet()) {
+            total += PRECIOS_MINIBAR.getOrDefault(entry.getKey(), 0.0) * entry.getValue();
+        }
+        return total;
+    }
 
 
-    
+    public String getDetalleConsumos(){
+        if (consumos.isEmpty()){
+            // Si no se registró ningún consumo en la habitación, retorna un mensaje indicándolo
+            return "  (Sin consumos)\n";
+        }
+        StringBuilder detalle=new StringBuilder();
+        for (Map.Entry<String,Integer> entry: new TreeMap<>(consumos).entrySet()){ // treemap para ordenar claves
+            String clave=entry.getKey();
+            String nombre=clave.substring(clave.indexOf('.')+1); // saca el "1." del inicio
+            double subtotal=PRECIOS_MINIBAR.getOrDefault(clave,0.0)*entry.getValue();
+            detalle.append(String.format("  %-25s x%-3d $%.2f%n",nombre,entry.getValue(),subtotal));
+            // Agrega la línea al ticket acomodando el nombre, la cantidad y el precio en columnas prolijas
+        }
+        return detalle.toString();
+    }
 
+    public void limpiarConsumos(){
+        consumos.clear();
+    }
 
+    public double costoFinal(int cantnoches){
+        return calcularCostoEstadia(cantnoches)+calcularTotalConsumos();
+    }
 
-
-
+    @Override
+    public String toString() {
+        return "Habitacion{" +
+                "numeroHabitacion=" + numeroHabitacion +
+                ", tipoHabitacion=" + tipoHabitacion +
+                ", estadoHabitacion=" + estadoHabitacion +
+                ", precioXnoche=" + precioXnoche +
+                '}';
+    }
 }
 

@@ -44,7 +44,7 @@ public class Hotel {
         Reserva reservaTemp=obtenerReservaPorID(idReserva);
         Habitacion habitacionTemp=obtenerHabitacionPorId(reservaTemp.getNumeroHabitacion());
         int cantnoches=(int) ChronoUnit.DAYS.between(reservaTemp.getFechaCheckIn(),reservaTemp.getFechaCheckOut());// Calcula la diferencia exacta de noches entre la fecha de ingreso y la de salida
-        return habitacionTemp.calcularCostoEstadia(cantnoches);
+        return habitacionTemp.costoFinal(cantnoches);
     }
 
 
