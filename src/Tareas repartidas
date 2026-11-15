@@ -32,3 +32,19 @@ Hay que hacer la coneccion a la base de datos donde guardaremos la info de las h
 
 ---------------------------------------------------------------
 HACER COSTO FINAL DE LA RESERVA
+
+registrarCliente
+registrarHabitacion
+obtenerClientePorDni
+obtenerHabitacionPorId
+
+crearReserva
+checkDisponibilidadFecha
+checkDisponibilidadFechaSinExepciones
+mostrarCalendarioHabitacion
+obtenerColorDia
+estaReservadaEnFecha
+obtenerHabitacionesDisponibles
+mostrarHabitacionesDisponibles
+hacerCheckIn
+hacerCheckOut

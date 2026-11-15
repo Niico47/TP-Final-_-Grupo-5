@@ -202,9 +202,6 @@ public class Hotel {
         public static final String BLANCO = "\u001B[97m";
         public static final String NARANJA = "\u001B[38;5;208m";
     }
-    //--------------------------------------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------------------------------------------------
-    //--------------------------------------------------------------------------------------------------------------------------------------
 
     //Revisa una fecha especifica de una habitacion para ver si esta reservada ese dia o no (Se usa para el calendario).
     private boolean estaReservadaEnFecha(int numeroHabitacion, LocalDate fecha) {
@@ -218,6 +215,11 @@ public class Hotel {
         }
         return false; //si devuelve false esta libre
     }
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------------------------------------------
+
+
 
     //Se agregaran a la lista "disponibles" las habitaciones disponibles para las fechas dadas y se devolvera la lista a mostrarHabitacionesDisponibles
     public List<Habitacion> obtenerHabitacionesDisponibles(LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
