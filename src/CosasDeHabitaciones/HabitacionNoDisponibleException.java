@@ -1,6 +1,7 @@
 package CosasDeHabitaciones;
 
 public class HabitacionNoDisponibleException extends Throwable {
-    public HabitacionNoDisponibleException(String s) {
+    public HabitacionNoDisponibleException(String mensaje) {
+        super(mensaje);
     }
 }
