@@ -31,6 +31,16 @@ public class Hotel {
         this.listaReservas = new ArrayList<Reserva>();
     }
 
+    public Reserva obtenerReservaPorID(int idReserva){
+        for (Reserva reserva:listaReservas){
+            if (reserva.getIdReserva()==idReserva){
+                return reserva;
+            }
+        }
+        throw new ENoExisteReservaParaFecha("No existe la reserva con id: " +idReserva);
+    }
+
+
     public String registrarCliente(Cliente clienteDado){
         if (!listaClientes.add(clienteDado)){
             return "El cliente ya existe en la lista o no se pudo resistrar.\n";
