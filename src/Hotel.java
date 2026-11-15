@@ -40,10 +40,10 @@ public class Hotel {
         throw new ENoExisteReservaParaFecha("No existe la reserva con id: " +idReserva);
     }
 
-    public double calcularCostoReserva(int idReserva){
+    public double calcularCostoReserva(int idReserva){// Calcula el costo total de la estadía correspondiente a una reserva
         Reserva reservaTemp=obtenerReservaPorID(idReserva);
         Habitacion habitacionTemp=obtenerHabitacionPorId(reservaTemp.getNumeroHabitacion());
-        int cantnoches=(int) ChronoUnit.DAYS.between(reservaTemp.getFechaCheckIn(),reservaTemp.getFechaCheckOut());
+        int cantnoches=(int) ChronoUnit.DAYS.between(reservaTemp.getFechaCheckIn(),reservaTemp.getFechaCheckOut());// Calcula la diferencia exacta de noches entre la fecha de ingreso y la de salida
         return habitacionTemp.calcularCostoEstadia(cantnoches);
     }
 
