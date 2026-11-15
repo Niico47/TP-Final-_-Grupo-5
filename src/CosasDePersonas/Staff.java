@@ -5,39 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Staff<T> extends Persona {
-    public static int contador;
-    int id_Empleado;
+public class Staff extends Persona {
+    private static int contador = 1; // Contador global
+    private int id_Empleado;
     private ETipoUsuario puesto;//recepcionista o administrador
     private double salarioBase;
     private String contrasenia;
+    private boolean estadoStaff; // Esto es para cuando se elimina un Staff, para poder manejarlo en la base de datos
 
-    public Staff(String nombre, String dni,String contrasenia, String domicilio, String localidad, int id_Empleado, ETipoUsuario puesto, double salarioBase) {
+    public Staff(String nombre, String dni, String domicilio, String localidad, ETipoUsuario puesto, double salarioBase, String contrasenia) {
         super(nombre, dni, domicilio, localidad);
-        this.id_Empleado = id_Empleado;
+        this.id_Empleado = contador;
         this.puesto = puesto;
-        this.contrasenia=contrasenia;
-        this.salarioBase = 300*salarioStaff();//el salario base es 300, se multiplica por el un valor segun el puesto del empleado
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
+        this.salarioBase = 300 * salarioStaff();//el salario base es 300, se multiplica por el un valor segun el puesto del empleado
         this.contrasenia = contrasenia;
+        this.estadoStaff = true;
+        contador++;
     }
 
     public int getId_Empleado() {
         return id_Empleado;
-    }
-
-    public double getSalarioBase() {
-        return salarioBase;
-    }
-
-    public void setSalarioBase(double salarioBase) {
-        this.salarioBase = salarioBase;
     }
 
     public ETipoUsuario getPuesto() {
@@ -48,16 +35,40 @@ public class Staff<T> extends Persona {
         this.puesto = puesto;
     }
 
-    public  boolean equals(Object object){
-        if(this==object) return true;
-        if(!(object instanceof Staff)) return false;
+    public double getSalarioBase() {
+        return salarioBase;
+    }
 
-        Staff otro=(Staff) object;
+    public void setSalarioBase(double salarioBase) {
+        this.salarioBase = salarioBase;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+
+    public boolean isEstadoStaff() {
+        return estadoStaff;
+    }
+
+    public void setEstadoStaff(boolean estadoStaff) {
+        this.estadoStaff = estadoStaff;
+    }
+
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Staff)) return false;
+
+        Staff otro = (Staff) object;
 
         return getDni().equals(otro.getDni());
     }
 
-    public int hashCode(){
+    public int hashCode() {
         return getDni().hashCode();
     }
 
@@ -78,6 +89,4 @@ public class Staff<T> extends Persona {
         }
         return resultado;
     }
-
-
 }

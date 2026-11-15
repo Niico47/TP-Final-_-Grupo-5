@@ -36,9 +36,6 @@ public class StaffHolderCambio extends Persona {
         return contador;
     }
 
-    public static void setContador(int contador) {
-        Staff.contador = contador;
-    }
 
     public int getId_Empleado() {
         return id_Empleado;
@@ -84,96 +81,7 @@ public class StaffHolderCambio extends Persona {
     // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    //1.Este metodo crea un usuario y contraseña al cliente para entrar al sistema
-    public String crearUsuarioCliente(Cliente cliente) {
-        Scanner sc = new Scanner(System.in);
-        String mensaje = "";
-        //2.Esto solo lo puede hacer el administrador, aqui lo validamos
-        if (puesto == ETipoUsuario.Administrador) {
-            System.out.print("Nombre usuario: ");
-            String nuevoUsuario = sc.nextLine();
 
-            // 3. VALIDACIÓN de que no existan dos clientes con el mismo usuario
-            if (existeUsuario(nuevoUsuario)) {
-                throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
-            }
-            //El cliente siempre tiene usuario y contrasenia null hasta que se cambia
-            cliente.setUsuario(nuevoUsuario);
-
-            System.out.print("\nContrasenia: ");
-            cliente.setContrasenia(sc.nextLine());
-            listaClientes.add(cliente);
-            mensaje = "\nUsuario creado con exito";
-        } else {
-            mensaje = "\nPara crear usuarios se necesita ser Administrador";
-        }
-
-        return mensaje;
-    }
-    //Devuelve lista de usuarios creados
-    public StringBuilder usuariosCreados() {
-        StringBuilder mensaje = new StringBuilder();
-        for (int i = 0; i < listaClientes.size(); i++) {
-            mensaje.append(listaClientes.get(i)).append("\n");
-        }
-        return mensaje;
-    }
-    //Elimina usuario de un cliente
-    public void eliminarUsuario(Cliente cliente) {
-        if(puesto==ETipoUsuario.Administrador) {
-            for (Cliente c : listaClientes) {
-                if (c.getUsuario().equalsIgnoreCase(cliente.getUsuario())) {
-                    listaClientes.remove(cliente);
-                    cliente.setContrasenia(null);
-                    cliente.setUsuario(null);
-                }
-            }
-        }
-    }
-    //busca un usuario dentro del staff
-    private boolean existeUsuarioStaff(String usuario) {
-        for (String staff : listaStaff) {
-            if (staff.equals(usuario)) {
-                return true; // Se encontró el duplicado
-            }
-        }
-        return false; // El nombre está libre
-    }
-    //crea usuario de staff
-    public String crearUsuarioStaff() {
-        Scanner sc = new Scanner(System.in);
-        String mensaje = "";
-        String nuevoUsuario;
-        String contrasenia;
-        if (puesto == ETipoUsuario.Administrador) {
-            System.out.print("Nombre usuario: ");
-            nuevoUsuario = sc.nextLine();
-
-            // 1. VALIDACIÓN que no haya usuarios repetidos
-            if (existeUsuario(nuevoUsuario)) {
-                throw new ElementoDuplicadoException("El usuario '" + nuevoUsuario + "' ya existe en el sistema.");
-            }
-            System.out.print("\nContrasenia: ");
-            contrasenia = sc.nextLine();
-            listaStaff.add(nuevoUsuario);
-            listaStaff.add(contrasenia);
-            mensaje = "\nUsuario creado con exito";
-        } else {
-            mensaje = "\nPara crear usuarios se necesita ser Administrador";
-        }
-
-        return mensaje;
-    }
-    //elimina usuario del staff
-    public void eliminarStaff(String usuario){
-        if(puesto==ETipoUsuario.Administrador){
-            for(String e:listaStaff){
-                if(e.equalsIgnoreCase(usuario)){
-                    listaStaff.remove(usuario);
-                }
-            }
-        }
-    }
     //metodo para calcular los salarios del staff, devuelve un multiplicador que varia el salario base
     public double salarioStaff(){
         double resultado=0;
