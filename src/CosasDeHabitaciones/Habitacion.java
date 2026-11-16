@@ -13,11 +13,21 @@ public class Habitacion {
     int numeroHabitacion;
     ETipoHabitacion tipoHabitacion;
     EEstadoHabitacion estadoHabitacion;
-
+    private boolean estadoHabitacion2; // Esto es para cuando se elimina una habitacion, para poder manejarlo en la base de datos
     double precioXnoche;
-
     private Map<String, Integer> stockMiniBar;
     private Map<String, Integer> consumos;
+
+    public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.estadoHabitacion = estadoHabitacion;
+        this.estadoHabitacion2 = true;
+        this.tipoHabitacion = tipoHabitacion;
+        this.precioXnoche = 500 * precioNoche();
+        this.stockMiniBar = new HashMap<>();
+        this.consumos = new HashMap<>();
+        this.reponerMiniBarADefault(); // para q cualquier habitacion nazca con su minibar
+    }
 
     private static final Map<String, Double> PRECIOS_MINIBAR = Map.of( //precios, las claves son las mismas que usa stock
             "1.Agua", 1500.0,
@@ -29,17 +39,6 @@ public class Habitacion {
             "7.Barra de cereal", 1800.0,
             "8.Champagne", 25000.0
     );
-
-
-    public Habitacion(int numeroHabitacion, EEstadoHabitacion estadoHabitacion, ETipoHabitacion tipoHabitacion) {
-        this.numeroHabitacion = numeroHabitacion;
-        this.estadoHabitacion = estadoHabitacion;
-        this.tipoHabitacion = tipoHabitacion;
-        this.precioXnoche = 500 * precioNoche();
-        this.stockMiniBar = new HashMap<>();
-        this.consumos = new HashMap<>();
-        this.reponerMiniBarADefault(); // para q cualquier habitacion nazca con su minibar
-    }
 
     public void reponerMiniBarADefault() {
         stockMiniBar.clear();

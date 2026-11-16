@@ -11,7 +11,7 @@ public class Reserva {
     private int numeroHabitacion;
     private LocalDate fechaCheckIn;
     private LocalDate fechaCheckOut;
-    private boolean estadoReserva;
+    private boolean estadoReserva;// Esto es para cuando se elimina una reserva, para poder manejarlo en la base de datos
 
     public Reserva(String dniCliente, int numeroHabitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
         this.idReserva = contador;

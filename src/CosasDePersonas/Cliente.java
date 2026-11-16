@@ -4,35 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Cliente extends Persona {
-    List<String> informacionPasajero;
-    private String usuario;
-    private String contrasenia;
+    List<String> informacionPasajero; // esto guarda informacion de reservas pasadas del cliente
+    private boolean estadoCliente; // Esto es para cuando se elimina un Cliente, para poder manejarlo en la base de datos
 
-    public Cliente(String nombre, String dni, String localidad, String domicilio){
+    public Cliente(String nombre, String dni, String domicilio, String localidad) {
         super(nombre, dni, domicilio, localidad);
-        this.informacionPasajero=new ArrayList<>();
-        this.usuario=null;
-        this.contrasenia=null;
-
+        this.informacionPasajero = new ArrayList<>();
+        this.estadoCliente = true;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public List<String> getInformacionPasajero() {
+        return informacionPasajero;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public boolean isEstadoCliente() {
+        return estadoCliente;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public void setEstadoCliente(boolean estadoCliente) {
+        this.estadoCliente = estadoCliente;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    
     public void agregarInfoPasajero(String e){
         informacionPasajero.add(e);
     }

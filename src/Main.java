@@ -23,11 +23,11 @@ import CosasDePersonas.ETipoUsuario;
 import CosasDePersonas.Staff;
 import DataBaseStuff.conectionDB;
 import java.sql.Connection;
+import static DataBaseStuff.manejoDeTablas.crearTablas;
 
 void main() {
 
-    conectionDB.inicializarBaseDeDatos();
-    conectionDB.conectar();
+    crearTablas();
 
 //habitaciones pasajeros/clientes del hotel, ClasesPersonas.Administrador,ClasesPersonas.Recepcionista, Pasajero
 
