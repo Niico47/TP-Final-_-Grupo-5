@@ -48,6 +48,17 @@ public class Hotel {
         }
         throw new ENoExisteReservaParaFecha("No existe la reserva con id: " +idReserva);
     }
+    public void cancelarReserva(int idReserva){
+
+            for(Reserva reserva:listaReservas) {
+                if (reserva.getIdReserva() == idReserva) {
+                    reservaDAO.eliminarReservaPorIdDeDB(idReserva);
+                    System.out.println("Reserva cancelada con exito");
+                }else{
+                    throw new ReservaNoExisteException("\nLa reserva que quiere eliminar no existe");
+                }
+            }
+    }
 
     public double calcularCostoReserva(int idReserva){// Calcula el costo total de la estadía correspondiente a una reserva
         Reserva reservaTemp=obtenerReservaPorID(idReserva);
