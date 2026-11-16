@@ -46,3 +46,17 @@ obtenerHabitacionesDisponibles
 mostrarHabitacionesDisponibles
 hacerCheckIn
 hacerCheckOut
+
+USE tpf5;
+
+SELECT * FROM habitaciones;
+SELECT * FROM staff;
+SELECT * FROM clientes;
+SELECT * FROM reservas;
+
+DROP TABLE IF EXISTS reservas;
+DROP TABLE IF EXISTS clientes;
+DROP TABLE IF EXISTS staff;
+DROP TABLE IF EXISTS habitaciones;
+
+truncate habitaciones;
