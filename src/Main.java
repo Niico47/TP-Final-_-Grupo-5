@@ -21,8 +21,13 @@ import CosasDeHabitaciones.Reserva;
 import CosasDePersonas.Cliente;
 import CosasDePersonas.ETipoUsuario;
 import CosasDePersonas.Staff;
+import DataBaseStuff.conectionDB;
+import java.sql.Connection;
 
 void main() {
+
+    conectionDB.inicializarBaseDeDatos();
+    conectionDB.conectar();
 
 //habitaciones pasajeros/clientes del hotel, ClasesPersonas.Administrador,ClasesPersonas.Recepcionista, Pasajero
 
@@ -37,8 +42,9 @@ void main() {
     Habitacion habitacion3 = new Habitacion(3, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SUIT);
     Habitacion habitacion4 = new Habitacion(4, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.TRIPLE);
     Habitacion habitacion5 = new Habitacion(5, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
-    Staff S1=new Staff<>("Ema","41431326","123456","Acevedo 6468","Mar del plata",1234, ETipoUsuario.Recepcionista,300);
-    Staff S2=new Staff<>("Nico","43632161","123457","Constitucion 5500","Mar del plata",123,ETipoUsuario.Administrador,300);
+
+    Staff S1=new Staff("Ema","41431326","123456","Acevedo 6468", ETipoUsuario.Recepcionista,1234,"1234");
+    Staff S2=new Staff("Nico","43632161","123457","Constitucion 5500",ETipoUsuario.Administrador,123,"1234");
 
     Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
 

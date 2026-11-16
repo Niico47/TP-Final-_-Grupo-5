@@ -342,11 +342,7 @@ public class Hotel {
 
         for(Staff empleado:listaStaff){
             //comprueba si coincide el dni y la conrtrasenia
-<<<<<<< HEAD
             if(empleado.getDni().equals(dni) &&  empleado.getContrasenia().equals(contrasenia)){
-=======
-            if (empleado.getDni().equals(dni) && empleado.getContrasenia().equals(contrasenia)) {
->>>>>>> ccf11b47d18ee7e79b08a2a7300682c8bb5fd75a
                 return empleado;
             }
         }
