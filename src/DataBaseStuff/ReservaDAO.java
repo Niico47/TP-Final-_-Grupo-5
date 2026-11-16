@@ -17,8 +17,7 @@ public class ReservaDAO {
     //Carga/recarga la lista de reservas
     public void cargarListaTemporal() {
         listaTempReservas.clear();
-        String sql = "SELECT idReserva, dniCliente, numeroHabitacion, fechaInicio, fechaFin, estadoReserva FROM reservas WHERE estadoReserva2 = 1";
-
+        String sql = "SELECT idReserva, dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut, estadoReserva FROM reservas WHERE estadoReserva = 1";
         try (Connection conn = conectionDB.conectar();
              Statement sta = conn.createStatement();
              ResultSet rs = sta.executeQuery(sql)) {
@@ -28,8 +27,8 @@ public class ReservaDAO {
                         rs.getInt("idReserva"),
                         rs.getString("dniCliente"),
                         rs.getInt("numeroHabitacion"),
-                        rs.getDate("fechaInicio").toLocalDate(),
-                        rs.getDate("fechaFin").toLocalDate()
+                        rs.getDate("fechaCheckIn").toLocalDate(),
+                        rs.getDate("fechaCheckOut").toLocalDate()
                 );
                 listaTempReservas.add(reservaTemp);
             }
@@ -41,9 +40,10 @@ public class ReservaDAO {
         }
     }
 
-    //Agrega una reserva a la tabla y recarga la lista (Sin incluir idReserva porque es AUTO_INCREMENT)
+    // Agrega una reserva a la tabla y recarga la lista (Sin incluir idReserva porque es AUTO_INCREMENT)
     public String agregarReservaADB(Reserva reserva) {
-        String sql = "INSERT INTO reservas (dniCliente, numeroHabitacion, fechaInicio, fechaFin, estadoReserva2) VALUES (?, ?, ?, ?, ?)";
+        // Corregido: Usamos fechaCheckIn y fechaCheckOut para que coincidan con la BD
+        String sql = "INSERT INTO reservas (dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut, estadoReserva) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = conectionDB.conectar();
              PreparedStatement pt = conn.prepareStatement(sql)) {
@@ -56,7 +56,7 @@ public class ReservaDAO {
 
             pt.executeUpdate();
 
-            //recarga de la lista
+            // Recarga de la lista
             cargarListaTemporal();
 
             return "Reserva agregada a la base de datos con exito.";
@@ -68,7 +68,7 @@ public class ReservaDAO {
 
     //eliminar(Soft Delete) cambiando el boolean de estado a false y recargando
     public String eliminarReservaPorIdDeDB(int idReserva) {
-        String sql = "UPDATE reservas SET estadoReserva2 = 0 WHERE idReserva = ?";
+        String sql = "UPDATE reservas SET estadoReserva = 0 WHERE idReserva = ?";
 
         try (Connection conn = conectionDB.conectar();
              PreparedStatement pt = conn.prepareStatement(sql)) {

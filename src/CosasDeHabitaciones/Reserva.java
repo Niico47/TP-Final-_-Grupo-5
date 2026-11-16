@@ -21,6 +21,15 @@ public class Reserva {
         this.estadoReserva = true;
     }
 
+    //sin id
+    public Reserva(String dniCliente, int numeroHabitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
+        this.dniCliente = dniCliente;
+        this.numeroHabitacion = numeroHabitacion;
+        this.fechaCheckIn = fechaCheckIn;
+        this.fechaCheckOut = fechaCheckOut;
+        this.estadoReserva = true;
+    }
+
     public int getIdReserva() {
         return idReserva;
     }

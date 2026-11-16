@@ -3,8 +3,11 @@ import CosasDeHabitaciones.Habitacion;
 import CosasDeHabitaciones.Reserva;
 import CosasDePersonas.Cliente;
 import CosasDePersonas.Staff;
+import DataBaseStuff.ClienteDAO;
+import DataBaseStuff.HabitacionDAO;
+import DataBaseStuff.ReservaDAO;
+import DataBaseStuff.StaffDAO;
 import Excepciones.*;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.temporal.ChronoUnit;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import Excepciones.*;
 
 public class Hotel {
 
@@ -21,6 +25,10 @@ public class Hotel {
     private HashSet<Staff> listaStaff;
     private HashSet<Cliente> listaClientes;
     private ArrayList<Reserva> listaReservas;
+    private ReservaDAO reservaDAO = new ReservaDAO();
+    private StaffDAO staffDAO = new StaffDAO();
+    private HabitacionDAO habitacionDAO = new HabitacionDAO();
+    private ClienteDAO clienteDAO = new ClienteDAO();
 
     public Hotel(String nombreHotel, String direccionHotel) {
         this.nombreHotel = nombreHotel;
@@ -28,7 +36,8 @@ public class Hotel {
         this.listaHabitaciones = new HashMap<Integer, Habitacion>();
         this.listaStaff = new HashSet<Staff>();
         this.listaClientes = new HashSet<Cliente>();
-        this.listaReservas = new ArrayList<Reserva>();
+        // Correccion: Sincronizamos la lista de reservas del hotel con la lista temporal del DAO para reflejar los datos de la base de datos
+        this.listaReservas = (ArrayList<Reserva>) reservaDAO.getListaTempReservas();
     }
 
     public Reserva obtenerReservaPorID(int idReserva){
@@ -74,7 +83,7 @@ public class Hotel {
     public Cliente obtenerClientePorDni(String dni) throws EClienteNoExiste {
         for (Cliente clienteTemp : listaClientes) {
             if (clienteTemp.getDni().equals(dni))
-                return clienteTemp; // Lo encontró, devuelve el objeto
+                return clienteTemp; // Lo encontro, devuelve el objeto
         }
         throw new EClienteNoExiste();
     }
@@ -82,7 +91,7 @@ public class Hotel {
     public Staff obtenerStaffPorDni(String dni) throws EClienteNoExiste {
         for (Staff staffTemp : listaStaff) {
             if (staffTemp.getDni().equals(dni))
-                return staffTemp; // Lo encontró, devuelve el objeto
+                return staffTemp; // Lo encontro, devuelve el objeto
         }
         throw new EClienteNoExiste();
     }
@@ -96,26 +105,29 @@ public class Hotel {
     }
 
 
-    public Reserva crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion, int idReserva) {
+    public Reserva crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion) {
 
-        Cliente clienteTemp = obtenerClientePorDni(dniCliente); //Se verifica que exista el cliente, sino tira una exepcion
-        Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion); //Se verifica que exista la habitacion, sino tira una exepcion
+        Cliente clienteTemp = obtenerClientePorDni(dniCliente); // Se verifica que exista el cliente
+        Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion); // Se verifica que exista la habitacion
 
-        //Se checkea el estado de la habitacion
+        // Se checkea el estado de la habitacion
         if (habitacionTemp.getEstadoHabitacion() != EEstadoHabitacion.DISPONIBLE){
-            throw new EHabitacionNoDisponible("La habitacion no se encuentra disponible: "+habitacionTemp.getEstadoHabitacion().getDescripcion());
+            throw new EHabitacionNoDisponible("La habitacion no se encuentra disponible: " + habitacionTemp.getEstadoHabitacion().getDescripcion());
         }
 
-        //Se checkea si el usuario es tonto
+        // Se checkea que las fechas sean validas
         if (fechaCheckOut.isBefore(fechaCheckIn) || fechaCheckOut.isEqual(fechaCheckIn)){
             throw new EFechasNoValidas("ERROR: La fecha de Check Out tiene que ser posterior a la fecha de Check In");
         }
 
-        //Se checkea que las fechas dadas no entren en conflicto con otras reservas para la habitacion dada
+        // Se checkea que las fechas dadas no entren en conflicto con otras reservas
         checkDisponibilidadFecha(fechaCheckIn, fechaCheckOut, numeroHabitacion);
 
-        Reserva reservaTemp = new Reserva(idReserva, dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut);
-        listaReservas.add(reservaTemp);
+        // Creamos el objeto Reserva SIN ID (la BD se encarga del AUTO_INCREMENT)
+        Reserva reservaTemp = new Reserva(dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut);
+        // Guardamos en la base de datos a traves del DAO (esto tambien actualiza la lista temporal)
+        reservaDAO.agregarReservaADB(reservaTemp);
+
         return reservaTemp;
     }
 
@@ -193,10 +205,10 @@ public class Hotel {
         }
         System.out.println("\n========================================================");
         System.out.println(" ["
-                        +Colores.GRIS+ "Gris" +Colores.RESET+ ": Dias que ya pasaron | "
-                        + Colores.ROJO +"Rojo"+ Colores.RESET +": Reservado | "
-                        + Colores.BLANCO +"Blanco"+ Colores.RESET +": Libre | "
-                        + Colores.NARANJA +"Naranja"+ Colores.RESET +": No disponible]");
+                +Colores.GRIS+ "Gris" +Colores.RESET+ ": Dias que ya pasaron | "
+                + Colores.ROJO +"Rojo"+ Colores.RESET +": Reservado | "
+                + Colores.BLANCO +"Blanco"+ Colores.RESET +": Libre | "
+                + Colores.NARANJA +"Naranja"+ Colores.RESET +": No disponible]");
     }
 
     private String obtenerColorDia(LocalDate fechaDada, int numeroHabitacion, EEstadoHabitacion estado){
@@ -295,7 +307,7 @@ public class Hotel {
                         habitacionTemp.getTipoHabitacion(),
                         habitacionTemp.getPrecioXnoche(),
                         montoTotal
-                            );
+                );
             }
         }
         System.out.println("================================================================\n");
@@ -325,15 +337,15 @@ public class Hotel {
         for (Reserva reservaTemp : listaReservas) {
             if (reservaTemp.getNumeroHabitacion() == numeroHabitacion && reservaTemp.isEstadoReserva()) { //isEstadoReserva verifica que la reserva este activa y no se halla dado de baja
 
-                    if (dniCliente.equals(reservaTemp.getDniCliente())) {
-                        Habitacion habitacionTemp = listaHabitaciones.get(numeroHabitacion);
-                        if (habitacionTemp.getEstadoHabitacion() == EEstadoHabitacion.OCUPADA) {
-                            habitacionTemp.setEstadoHabitacion(EEstadoHabitacion.DISPONIBLE);
-                            reservaTemp.setEstadoReserva(false);
-                            return reservaTemp;
-                        }
+                if (dniCliente.equals(reservaTemp.getDniCliente())) {
+                    Habitacion habitacionTemp = listaHabitaciones.get(numeroHabitacion);
+                    if (habitacionTemp.getEstadoHabitacion() == EEstadoHabitacion.OCUPADA) {
+                        habitacionTemp.setEstadoHabitacion(EEstadoHabitacion.DISPONIBLE);
+                        reservaTemp.setEstadoReserva(false);
+                        return reservaTemp;
                     }
                 }
+            }
         }
         throw new ENoExisteReservaParaFecha("No existe una reserva activa para este cliente en esta habitacion para hoy.");
     }

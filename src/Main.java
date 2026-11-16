@@ -56,11 +56,11 @@ void main() {
     System.out.println(hotel1.registrarHabitacion(habitacion5.getNumeroHabitacion(), habitacion5));
 
 
-    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 18), "123", 1, 1);
+    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 18), "123", 1);
     System.out.println(reserva_registrada.getFechaCheckIn());
-    Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23), "123", 1, 2);
+    Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23), "123", 1);
     System.out.println(reserva_registrada2.getFechaCheckIn());
-    Reserva reserva_registrada3 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1, 3);
+//    Reserva reserva_registrada3 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
 
 
 //    habitacion1.setEstadoHabitacion(EEstadoHabitacion.LIMPIEZA);
