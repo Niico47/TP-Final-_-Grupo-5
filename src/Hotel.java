@@ -59,6 +59,15 @@ public class Hotel {
                 }
             }
     }
+    public void eliminarCliente(String dni){
+        for(Cliente cliente :listaClientes){
+            if(cliente.getDni().equals(dni)){
+                clienteDAO.eliminarClienteConDniDeDB(dni);
+            }else{
+                throw new EClienteNoExiste();
+            }
+        }
+    }
 
     public double calcularCostoReserva(int idReserva){// Calcula el costo total de la estadía correspondiente a una reserva
         Reserva reservaTemp=obtenerReservaPorID(idReserva);

@@ -171,7 +171,7 @@ public class Menu {
                     System.out.println("\nIngrese mes: ");
                     int mes = sc.nextInt();
                     System.out.println("\nIngrese numero de habitacion: ");
-                    int nroHabitacionn = sc.nextInt();
+                    nroHabitacionn = sc.nextInt();
                     sc.nextLine(); // Limpiar buffer
 
                     hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
@@ -266,7 +266,15 @@ public class Menu {
 
                     hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
                     break;
-
+                case 5:
+                    //Eliminar cliente
+                    System.out.println("\nIngrese el usuario(dni) del cliente que quiere eliminar: ");
+                    dni=sc.nextLine();
+                    hotel.eliminarCliente(dni);
+                break;
+                case 6:
+                    
+                break;
                 case 0: //Salir del menu
                     System.out.println("\nFinalizo la interaccion con el menu");
                     break;
