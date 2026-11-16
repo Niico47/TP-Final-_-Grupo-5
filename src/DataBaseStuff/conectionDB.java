@@ -37,6 +37,7 @@ public class conectionDB {
     public static Connection conectar() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("CONEXION A LA DB EXITOSA");
             return DriverManager.getConnection(URL_DB, user, password);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException("Error al conectar desde la interfaz", e);
