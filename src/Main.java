@@ -43,8 +43,8 @@ void main() {
     Habitacion habitacion4 = new Habitacion(4, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.TRIPLE);
     Habitacion habitacion5 = new Habitacion(5, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
 
-    Staff S1=new Staff("Ema","41431326","123456","Acevedo 6468", ETipoUsuario.Recepcionista,1234,"1234");
-    Staff S2=new Staff("Nico","43632161","123457","Constitucion 5500",ETipoUsuario.Administrador,123,"1234");
+    Staff S1=new Staff("Ema","123","123456","Acevedo 6468", ETipoUsuario.Recepcionista,500,"1234");
+    Staff S2=new Staff("Nico","456","123457","Constitucion 5500",ETipoUsuario.Administrador,300,"1234");
 
     Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
 
