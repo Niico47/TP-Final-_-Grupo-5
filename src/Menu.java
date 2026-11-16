@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import static CosasDePersonas.ETipoUsuario.Recepcionista;
+
 // Aca va a ingresar el staff con su contrasenia y nombre de usuario.
 // Segun que tipo de staff sea (Administrador o recepcionista) le va a mostrar su menu especifico
 //(menu de Recepcionista) o (menu de Administrador)
@@ -23,16 +25,7 @@ import java.util.Scanner;
         }
 
         //inicio de sesion
-<<<<<<< HEAD
-        public void iniciarSesion(){
-            //Defino el formato esperado para leer fechas
-            DateTimeFormatter formato=DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            int control=1;
-            int control2=1;
-            int opcion=0;
-=======
         public void iniciarSesion() {
->>>>>>> ccf11b47d18ee7e79b08a2a7300682c8bb5fd75a
             System.out.println("------------INICIO DE SESION-------------");
 
             System.out.println("\nIngrese dni: ");
@@ -42,14 +35,13 @@ import java.util.Scanner;
             String contrasenia=sc.nextLine();
 
             try {
-                Staff empleado=hotel.validarLogin(dni,contrasenia);
+                Staff empleado = hotel.validarLogin(dni, contrasenia);
 
                 System.out.println("\nBienvenidos al sistema");
 
                 //se determina el menu segun el tipo de empleado
                 switch (empleado.getPuesto()) {
                     case Administrador -> {
-<<<<<<< HEAD
                         System.out.println(menuAdministrador());
                         break;
                     }
@@ -57,24 +49,9 @@ import java.util.Scanner;
                         System.out.println(menuRecepcionista());
                         break;
                     }
-                    default -> {
-                        System.out.println("\nTipo de empleado no reconocido");
-                        break;
-=======
-                        menuAdministrador();
-//                        break; El breack no es necesatrio ema ciando se usa la flechita ->
-                    }
-                    case Recepcionista -> {
-                        menuRecepcionista();
-                    }
-                    default -> {
-                        System.out.println("\nTipo de empleado no reconocido");
->>>>>>> ccf11b47d18ee7e79b08a2a7300682c8bb5fd75a
-                    }
                 }
-
             } catch (EErrorLogIn e) {
-                System.out.println(e.getMessage());
+                throw new RuntimeException(e);
             }
         }
 
@@ -128,7 +105,7 @@ import java.util.Scanner;
                         }
                     break;
                     case 2:
-
+                            
                     break;
                 }
             }
