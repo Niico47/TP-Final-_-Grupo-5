@@ -60,3 +60,7 @@ DROP TABLE IF EXISTS staff;
 DROP TABLE IF EXISTS habitaciones;
 
 truncate habitaciones;
+
+settings
+plugins
+plantuml4idea (installar)

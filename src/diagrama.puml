@@ -1,0 +1,143 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' ==================== ENUMERACIONES ====================
+enum EEstadoHabitacion {
+    DISPONIBLE
+    OCUPADA
+    LIMPIEZA
+    REPARACION
+    DESINFECCION
+    - String descripcion
+    + getDescripcion() : String
+}
+
+enum ETipoHabitacion {
+    SINGLE
+    DOBLE
+    TRIPLE
+    SUIT
+    - double precioPorNoche
+    + getPrecioPorNoche() : double
+}
+
+enum ETipoUsuario {
+    Administrador
+    Recepcionista
+}
+
+' ==================== CLASE ABSTRACTA Y PERSONAS ====================
+abstract class Persona {
+    - String nombre
+    - String dni
+    - String telefono
+    - String direccion
+    + getDni() : String
+    + getNombre() : String
+}
+
+class Cliente {
+    + Cliente(nombre, dni, telefono, direccion)
+}
+
+class Staff {
+    - int idStaff
+    - ETipoUsuario tipoUsuario
+    - double salario
+    - String contrasenia
+    + getContrasenia() : String
+    + getTipoUsuario() : ETipoUsuario
+}
+
+Persona <|-- Cliente
+Persona <|-- Staff
+Staff --> ETipoUsuario
+
+' ==================== HABITACIONES Y RESERVAS ====================
+class Habitacion {
+    - int numeroHabitacion
+    - EEstadoHabitacion estadoHabitacion
+    - ETipoHabitacion tipoHabitacion
+    + costoFinal(cantNoches : int) : double
+    + getEstadoHabitacion() : EEstadoHabitacion
+    + setEstadoHabitacion(estado : EEstadoHabitacion) : void
+}
+
+class Reserva {
+    - int idReserva
+    - String dniCliente
+    - int numeroHabitacion
+    - LocalDate fechaCheckIn
+    - LocalDate fechaCheckOut
+    - boolean estadoReserva
+    + isEstadoReserva() : boolean
+    + setEstadoReserva(estado : boolean) : void
+}
+
+Habitacion --> EEstadoHabitacion
+Habitacion --> ETipoHabitacion
+
+' ==================== CAPA DE PERSISTENCIA (DAOs) ====================
+class conectionDB {
+    + {static} conectar() : Connection
+}
+
+class ReservaDAO {
+    - List<Reserva> listaTempReservas
+    + cargarListaTemporal() : void
+    + agregarReservaADB(reserva : Reserva) : String
+    + eliminarReservaPorIdDeDB(idReserva : int) : String
+    + getListaTempReservas() : List<Reserva>
+}
+
+class HabitacionDAO
+class ClienteDAO
+class StaffDAO
+
+ReservaDAO ..> conectionDB : usa
+HabitacionDAO ..> conectionDB : usa
+ClienteDAO ..> conectionDB : usa
+StaffDAO ..> conectionDB : usa
+ReservaDAO o-- Reserva
+
+' ==================== CLASE PRINCIPAL DE NEGOCIO ====================
+class Hotel {
+    - String nombreHotel
+    - String direccionHotel
+    - HashMap<Integer, Habitacion> listaHabitaciones
+    - HashSet<Staff> listaStaff
+    - HashSet<Cliente> listaClientes
+    - ArrayList<Reserva> listaReservas
+    - ReservaDAO reservaDAO
+    - StaffDAO staffDAO
+    - HabitacionDAO habitacionDAO
+    - ClienteDAO clienteDAO
+    + crearReserva(...) : Reserva
+    + hacerCheckIn(dni : String, hab : int) : Reserva
+    + hacerCheckOut(dni : String, hab : int) : Reserva
+    + mostrarCalendarioHabitacion(anio : int, mes : int, hab : int) : void
+    + obtenerHabitacionesDisponibles(in : LocalDate, out : LocalDate) : List<Habitacion>
+    + validarLogin(dni : String, pass : String) : Staff
+}
+
+class Menu {
+    - Hotel hotel
+    + iniciarSesion() : void
+}
+
+Hotel *-- Habitacion
+Hotel *-- Cliente
+Hotel *-- Staff
+Hotel *-- Reserva
+Hotel --> ReservaDAO
+Hotel --> HabitacionDAO
+Hotel --> ClienteDAO
+Hotel --> StaffDAO
+Menu --> Hotel
+
+class manejoDeTablas {
+    + {static} crearTablas() : void
+}
+
+manejoDeTablas ..> conectionDB : usa
+@enduml
