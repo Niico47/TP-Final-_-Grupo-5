@@ -105,6 +105,25 @@ public class Habitacion {
         consumos.put(productoEncontrado, acumuladoActual + cantidad);// se guarda en connsumos los valores sumados
     }
 
+
+    public void mostrarConsumos(){
+        System.out.printf("\n Resumen consumos. Nro habitacion: "+numeroHabitacion);
+
+        if (consumos.isEmpty()){
+            System.out.printf("\n No se registraron consumos en habitacion: " +numeroHabitacion);
+        }
+        else {
+            int total=0;
+            for (Map.Entry<String , Integer> entry: consumos.entrySet()){
+                System.out.printf("\n - " +entry.getKey()+ " : " +entry.getValue());
+                total+=entry.getValue();
+            }
+            System.out.printf("\n Total de productos consumidos: "+total+ " u.");
+        }
+
+    }
+
+
     public void realizarLimpieza() {
         System.out.printf("\n Iniciando limpieza de habitacion " + numeroHabitacion);
         reponerMiniBarADefault();

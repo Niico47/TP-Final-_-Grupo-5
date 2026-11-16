@@ -60,11 +60,11 @@ public class Menu {
         String mensaje = "";
         mensaje = "\n===== Menu Recepcionista =====" +
                 "\n1. Registrar Reserva" +
-                //Eliminar Reserva
                 "\n2. Realizar CheckIn" +
                 "\n3. Realizar CheckOut" +
                 "\n4. Consultar Habitaciones disponibles" +
-                //Consultar calendario de habitacion
+                "\n5.Eliminar reserva" +
+                "\n6.Consultar calendario habitacion" +
                 "\n0. Para finalizar" +
                 "\n======================================";
         return mensaje;
@@ -158,6 +158,24 @@ public class Menu {
                         System.out.println("Error: El formato debe ser dd/MM/yyyy");
                     }
                     break;
+                case 5:
+                    //Eliminar reserva
+                    System.out.println("\nIndique el id de la reserva a cancelar");
+                    int idReserva=sc.nextInt();
+                    hotel.cancelarReserva(idReserva);
+                break;
+                case 6:
+                    //Consultar calendario
+                    System.out.println("\nIngrese anio: ");
+                    int anio = sc.nextInt();
+                    System.out.println("\nIngrese mes: ");
+                    int mes = sc.nextInt();
+                    System.out.println("\nIngrese numero de habitacion: ");
+                    nroHabitacionn = sc.nextInt();
+                    sc.nextLine(); // Limpiar buffer
+
+                    hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
+                break;
 
                 case 0: //Salir del menu
                     System.out.println("\nFinalizo la interaccion con el menu");
@@ -248,7 +266,15 @@ public class Menu {
 
                     hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
                     break;
-
+                case 5:
+                    //Eliminar cliente
+                    System.out.println("\nIngrese el usuario(dni) del cliente que quiere eliminar: ");
+                    dni=sc.nextLine();
+                    hotel.eliminarCliente(dni);
+                break;
+                case 6:
+                    
+                break;
                 case 0: //Salir del menu
                     System.out.println("\nFinalizo la interaccion con el menu");
                     break;
