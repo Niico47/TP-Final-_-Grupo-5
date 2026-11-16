@@ -74,7 +74,7 @@ public class Staff extends Persona {
         if(puesto==ETipoUsuario.Recepcionista){
             resultado=3;
         }
-        if(puesto==ETipoUsuario.mantenimiento){
+        if(puesto==ETipoUsuario.Mantenimiento){
             resultado=2;
         }
         if(puesto==ETipoUsuario.Limpieza){
