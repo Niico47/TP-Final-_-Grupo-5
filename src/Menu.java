@@ -75,13 +75,13 @@ public class Menu {
         String mensaje = "";
         mensaje = "\n===== Menu Administrador =====" +
                 "\n1. Registrar Clientes" +
-                //Registrar nuevo Staff
-                //Eliminar Staff
                 "\n2. Registrar Habitacion" +
                 "\n3. Consultar Habitaciones disponibles" +
                 "\n4. Consultar calendario de habitacion" +
                 "\n5.Eliminar clientes" +
                 "\n6.Eliminar habitacion" +
+                "\n7.Registrar Staff" +
+                "\n8.Eliminar Staff" +
                 "\n0. Para finalizar" +
                 "\n======================================";
         return mensaje;
@@ -176,6 +176,12 @@ public class Menu {
                     sc.nextLine(); // Limpiar buffer
 
                     hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
+                break;
+                case 8:
+                    //Eliminar Staff
+                    System.out.println("\nIngrese el idEmpleado: ");
+                    int idEmpleado=sc.nextInt();
+                    hotel.eliminarStaff(idEmpleado);
                 break;
 
                 case 0: //Salir del menu
