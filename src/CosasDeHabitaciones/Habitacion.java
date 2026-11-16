@@ -118,9 +118,9 @@ public class Habitacion {
                 System.out.printf("\n - " +entry.getKey()+ " : " +entry.getValue());
                 total+=entry.getValue();
             }
-            System.out.printf("\n Total de productos consumidos: "+total+ " u.");|
+            System.out.printf("\n Total de productos consumidos: "+total+ " u.");
         }
-        
+
     }
 
 
