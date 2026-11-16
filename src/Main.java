@@ -29,52 +29,60 @@ void main() {
 
     crearTablas();
 
+    Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
+    Staff S2=new Staff(2,"Nico","456","123457","Constitucion 5500",ETipoUsuario.Administrador,300,"1234");
+
+    Menu m1=new Menu(hotel1);
+    hotel1.registrarStaff(S2);
+//    hotel1.registrarStaff(S2);
+    m1.iniciarSesion();
+
 //habitaciones pasajeros/clientes del hotel, ClasesPersonas.Administrador,ClasesPersonas.Recepcionista, Pasajero
 
 //El sistema deberá permitir realizar reservas de habitaciones, hacer el check-in y check-out de los pasajeros,
 // listar las habitaciones actualmente ocupadas y los datos de los ocupantes, las habitaciones disponibles,
 // y las habitaciones que no estén disponibles por algún motivo
 // (limpieza, reparación, desinfección, etc. Detallar el motivo).
-    Scanner sc=new Scanner(System.in);
-    Cliente cliente1 = new Cliente("Juan", "123", "Buenos Aires", "Luro 1234");
-    Habitacion habitacion1 = new Habitacion(1, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
-    Habitacion habitacion2 = new Habitacion(2, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.DOBLE);
-    Habitacion habitacion3 = new Habitacion(3, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SUIT);
-    Habitacion habitacion4 = new Habitacion(4, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.TRIPLE);
-    Habitacion habitacion5 = new Habitacion(5, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
+//    Scanner sc=new Scanner(System.in);
+//    Cliente cliente1 = new Cliente("Juan", "123", "Buenos Aires", "Luro 1234");
+//    Habitacion habitacion1 = new Habitacion(1, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
+//    Habitacion habitacion2 = new Habitacion(2, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.DOBLE);
+//    Habitacion habitacion3 = new Habitacion(3, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SUIT);
+//    Habitacion habitacion4 = new Habitacion(4, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.TRIPLE);
+//    Habitacion habitacion5 = new Habitacion(5, EEstadoHabitacion.DISPONIBLE, ETipoHabitacion.SINGLE);
+//
+//    Staff S1=new Staff(1,"Ema","123","123456","Acevedo 6468", ETipoUsuario.Recepcionista,500,"1234");
+//    Staff S2=new Staff(2,"Nico","456","123457","Constitucion 5500",ETipoUsuario.Administrador,300,"1234");
+//
+//
+//    System.out.println(hotel1.registrarCliente(cliente1));
+//    System.out.println(hotel1.registrarHabitacion(habitacion1.getNumeroHabitacion(), habitacion1));
+//    System.out.println(hotel1.registrarHabitacion(habitacion2.getNumeroHabitacion(), habitacion2));
+//    System.out.println(hotel1.registrarHabitacion(habitacion3.getNumeroHabitacion(), habitacion3));
+//    System.out.println(hotel1.registrarHabitacion(habitacion4.getNumeroHabitacion(), habitacion4));
+//    System.out.println(hotel1.registrarHabitacion(habitacion5.getNumeroHabitacion(), habitacion5));
+//
+//
+//    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 18), "123", 1);
+//    System.out.println(reserva_registrada.getFechaCheckIn());
+//    Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23), "123", 1);
+//    System.out.println(reserva_registrada2.getFechaCheckIn());
+////    Reserva reserva_registrada3 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
+//
+//
+////    habitacion1.setEstadoHabitacion(EEstadoHabitacion.LIMPIEZA);
+//
+//    hotel1.mostrarCalendarioHabitacion(2026, 11, 1);
+//
+//    hotel1.mostrarHabitacionesDisponibles(LocalDate.of(2026, 11, 10), LocalDate.of(2026, 11, 25));
+//
+//    System.out.println(hotel1.hacerCheckIn("123", 1));
+//    System.out.println(hotel1.hacerCheckOut("123", 1));
 
-    Staff S1=new Staff(1,"Ema","123","123456","Acevedo 6468", ETipoUsuario.Recepcionista,500,"1234");
-    Staff S2=new Staff(2,"Nico","456","123457","Constitucion 5500",ETipoUsuario.Administrador,300,"1234");
-
-    Hotel hotel1 = new Hotel("SuperHotel", "Av Martin 321");
-
-    System.out.println(hotel1.registrarCliente(cliente1));
-    System.out.println(hotel1.registrarHabitacion(habitacion1.getNumeroHabitacion(), habitacion1));
-    System.out.println(hotel1.registrarHabitacion(habitacion2.getNumeroHabitacion(), habitacion2));
-    System.out.println(hotel1.registrarHabitacion(habitacion3.getNumeroHabitacion(), habitacion3));
-    System.out.println(hotel1.registrarHabitacion(habitacion4.getNumeroHabitacion(), habitacion4));
-    System.out.println(hotel1.registrarHabitacion(habitacion5.getNumeroHabitacion(), habitacion5));
 
 
-    Reserva reserva_registrada = hotel1.crearReserva(LocalDate.of(2026, 11, 12),LocalDate.of(2026, 11, 18), "123", 1);
-    System.out.println(reserva_registrada.getFechaCheckIn());
-    Reserva reserva_registrada2 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23), "123", 1);
-    System.out.println(reserva_registrada2.getFechaCheckIn());
-//    Reserva reserva_registrada3 = hotel1.crearReserva(LocalDate.of(2026, 11, 19),LocalDate.of(2026, 11, 23),"123", 1);
-
-
-//    habitacion1.setEstadoHabitacion(EEstadoHabitacion.LIMPIEZA);
-
-    hotel1.mostrarCalendarioHabitacion(2026, 11, 1);
-
-    hotel1.mostrarHabitacionesDisponibles(LocalDate.of(2026, 11, 10), LocalDate.of(2026, 11, 25));
-
-    System.out.println(hotel1.hacerCheckIn("123", 1));
-    System.out.println(hotel1.hacerCheckOut("123", 1));
-
-    Menu m1=new Menu(hotel1);
-    hotel1.registrarStaff(S1);
-    hotel1.registrarStaff(S2);
-    m1.iniciarSesion();
+//    hotel1.registrarStaff(S1);
+//    hotel1.registrarStaff(S2);
+//    m1.iniciarSesion();
 
 }

@@ -61,6 +61,8 @@ public class Hotel {
         if (!listaClientes.add(clienteDado)){
             return "El cliente ya existe en la lista o no se pudo resistrar.\n";
         }
+        clienteDAO.agregarClienteADB(clienteDado);
+        this.listaClientes = new HashSet<>(clienteDAO.getListaTempClientes());
         return "El cliente se ha registrado con exito en la lista de clientes.\n";
     }
 
@@ -69,7 +71,9 @@ public class Hotel {
         if (!listaStaff.add(staffDado)){
             return "El staff ya existe en la lista o no se pudo resistrar.\n";
         }
-        return "El stadd se ha registrado con exito en la lista de empleados.\n";
+        staffDAO.agregarStaffADB(staffDado);
+        this.listaStaff = new HashSet<>(staffDAO.getListaTempStaff());
+        return "El stadf se ha registrado con exito en la lista de empleados.\n";
     }
 
     public String registrarHabitacion(Integer numeroHabitacion, Habitacion habitacionDada){
@@ -77,6 +81,8 @@ public class Hotel {
             return "La habitacion ya existe en la lista o no se pudo resistrar.\n";
         }
         listaHabitaciones.put(numeroHabitacion, habitacionDada);
+        habitacionDAO.agregarHabitacionADB(habitacionDada);
+        this.listaHabitaciones = new HashMap<>(habitacionDAO.getListaTempHabitaciones());
         return "La habitacion se ha registrado con exito en la lista de habitaciones.\n";
     }
 
