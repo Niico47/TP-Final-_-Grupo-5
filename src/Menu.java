@@ -233,10 +233,17 @@ import static CosasDePersonas.ETipoUsuario.Recepcionista;
                         System.out.println("\nIngrese año: ");
                         int anio=sc.nextInt();
                         System.out.println("\nIngrese mes: ");
-
-                        hotel.mostrarCalendarioHabitacion();
+                        int mes=sc.nextInt();
+                        System.out.println("\nIngrese numero de habitacion: ");
+                        int nroHabitacionn=sc.nextInt();
+                        hotel.mostrarCalendarioHabitacion(anio,mes,nroHabitacionn);
+                    break;
+                    case 0:
+                        System.out.println("\nFinalizo la interaccion con el menu");
                     break;
                 }
+                System.out.println("\nIngrese 1 para continuar o 0 para finalizar: ");
+                control=sc.nextInt();
             }
         }
     }
