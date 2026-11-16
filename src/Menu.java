@@ -74,13 +74,13 @@ public class Menu {
         String mensaje = "";
         mensaje = "\n===== Menu Administrador =====" +
                 "\n1. Registrar Clientes" +
-                //Eliminar clientes
                 //Registrar nuevo Staff
                 //Eliminar Staff
                 "\n2. Registrar Habitacion" +
                 //Eliminar Habitacion
                 "\n3. Consultar Habitaciones disponibles" +
                 "\n4. Consultar calendario de habitacion" +
+                "\n5.Eliminar clientes" +
                 "\n0. Para finalizar" +
                 "\n======================================";
         return mensaje;
@@ -273,7 +273,9 @@ public class Menu {
                     hotel.eliminarCliente(dni);
                 break;
                 case 6:
-                    
+                    //Eliminar habitacion
+                    System.out.println("\nIngrese nro de habitacion que quiere eliminar");
+                    nroHabitacionn=sc.nextInt();
                 break;
                 case 0: //Salir del menu
                     System.out.println("\nFinalizo la interaccion con el menu");
