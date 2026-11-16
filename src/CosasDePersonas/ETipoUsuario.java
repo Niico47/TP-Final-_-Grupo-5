@@ -1,6 +1,6 @@
 package CosasDePersonas;
 
 public enum ETipoUsuario {
-    Administrador, Recepcionista, Limpieza, mantenimiento;
+    Administrador, Recepcionista, Limpieza, Mantenimiento;
 
 }
