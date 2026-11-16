@@ -59,10 +59,12 @@ public class Menu {
     private String menuRecepcionista(){
         String mensaje = "";
         mensaje = "\n===== Menu Recepcionista =====" +
-                "\n1. Registrar Reservas." +
-                "\n2. Realizar CheckIn." +
+                "\n1. Registrar Reserva" +
+                //Eliminar Reserva
+                "\n2. Realizar CheckIn" +
                 "\n3. Realizar CheckOut" +
                 "\n4. Consultar Habitaciones disponibles" +
+                //Consultar calendario de habitacion
                 "\n0. Para finalizar" +
                 "\n======================================";
         return mensaje;
@@ -72,9 +74,13 @@ public class Menu {
         String mensaje = "";
         mensaje = "\n===== Menu Administrador =====" +
                 "\n1. Registrar Clientes" +
-                "\n2. Registrar Habitaciones" +
+                //Eliminar clientes
+                //Registrar nuevo Staff
+                //Eliminar Staff
+                "\n2. Registrar Habitacion" +
+                //Eliminar Habitacion
                 "\n3. Consultar Habitaciones disponibles" +
-                "\n4. Consultar calendario de habitaciones" +
+                "\n4. Consultar calendario de habitacion" +
                 "\n0. Para finalizar" +
                 "\n======================================";
         return mensaje;
