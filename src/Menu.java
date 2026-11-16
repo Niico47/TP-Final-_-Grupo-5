@@ -166,7 +166,15 @@ public class Menu {
                 break;
                 case 6:
                     //Consultar calendario
-                    hotel
+                    System.out.println("\nIngrese anio: ");
+                    int anio = sc.nextInt();
+                    System.out.println("\nIngrese mes: ");
+                    int mes = sc.nextInt();
+                    System.out.println("\nIngrese numero de habitacion: ");
+                    int nroHabitacionn = sc.nextInt();
+                    sc.nextLine(); // Limpiar buffer
+
+                    hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
                 break;
 
                 case 0: //Salir del menu
