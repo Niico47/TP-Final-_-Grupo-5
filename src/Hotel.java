@@ -96,7 +96,7 @@ public class Hotel {
     }
 
 
-    public Reserva crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion){
+    public Reserva crearReserva(LocalDate fechaCheckIn, LocalDate fechaCheckOut, String dniCliente, int numeroHabitacion, int idReserva) {
 
         Cliente clienteTemp = obtenerClientePorDni(dniCliente); //Se verifica que exista el cliente, sino tira una exepcion
         Habitacion habitacionTemp = obtenerHabitacionPorId(numeroHabitacion); //Se verifica que exista la habitacion, sino tira una exepcion
@@ -114,7 +114,7 @@ public class Hotel {
         //Se checkea que las fechas dadas no entren en conflicto con otras reservas para la habitacion dada
         checkDisponibilidadFecha(fechaCheckIn, fechaCheckOut, numeroHabitacion);
 
-        Reserva reservaTemp = new Reserva(dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut);
+        Reserva reservaTemp = new Reserva(idReserva, dniCliente, numeroHabitacion, fechaCheckIn, fechaCheckOut);
         listaReservas.add(reservaTemp);
         return reservaTemp;
     }

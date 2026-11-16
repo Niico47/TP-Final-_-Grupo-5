@@ -21,7 +21,7 @@ public class manejoDeTablas {
 
         // 2. Tabla Staff (Hereda atributos de Persona + propios)
         String tablaStaff = "CREATE TABLE IF NOT EXISTS staff (" +
-                "id_Empleado INT NOT NULL, " +//PK
+                "id_Empleado INT AUTO_INCREMENT PRIMARY KEY, " +//PK
                 "nombre VARCHAR(100) NOT NULL, " +
                 "dni VARCHAR(20) NOT NULL, " +
                 "domicilio VARCHAR(100), " +
@@ -29,9 +29,7 @@ public class manejoDeTablas {
                 "puesto VARCHAR(45) NOT NULL, " +
                 "salarioBase DOUBLE NOT NULL, " +
                 "contrasenia VARCHAR(45) NOT NULL, " +
-                "estadoStaff BOOLEAN NOT NULL, " +
-                "PRIMARY KEY (id_Empleado));";
-
+                "estadoStaff BOOLEAN NOT NULL);";
         // 3. Tabla Clientes
         String tablaClientes = "CREATE TABLE IF NOT EXISTS clientes (" +
                 "dni VARCHAR(20) NOT NULL, " + //PK
@@ -43,13 +41,12 @@ public class manejoDeTablas {
 
         // 4. Tabla Reservas
         String tablaReservas = "CREATE TABLE IF NOT EXISTS reservas (" +
-                "idReserva INT NOT NULL, " +//PK
+                "idReserva INT AUTO_INCREMENT PRIMARY KEY, " +//PK
                 "dniCliente VARCHAR(20) NOT NULL, " +
                 "numeroHabitacion INT NOT NULL, " +
                 "fechaCheckIn DATE NOT NULL, " +
                 "fechaCheckOut DATE NOT NULL, " +
-                "estadoReserva BOOLEAN NOT NULL, " +
-                "PRIMARY KEY (idReserva));";
+                "estadoReserva BOOLEAN NOT NULL);";
 
         try (Connection conn = conectionDB.conectar();
              Statement sta = conn.createStatement()) {

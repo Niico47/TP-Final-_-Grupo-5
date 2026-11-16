@@ -5,22 +5,20 @@ import java.util.Objects;
 
 public class Reserva {
 
-    private static int contador = 1; // Contador global
     private int idReserva;
     private String dniCliente;
     private int numeroHabitacion;
     private LocalDate fechaCheckIn;
     private LocalDate fechaCheckOut;
-    private boolean estadoReserva;// Esto es para cuando se elimina una reserva, para poder manejarlo en la base de datos
+    private boolean estadoReserva;
 
-    public Reserva(String dniCliente, int numeroHabitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
-        this.idReserva = contador;
+    public Reserva(int idReserva, String dniCliente, int numeroHabitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut) {
+        this.idReserva = idReserva;
         this.dniCliente = dniCliente;
         this.numeroHabitacion = numeroHabitacion;
         this.fechaCheckIn = fechaCheckIn;
         this.fechaCheckOut = fechaCheckOut;
         this.estadoReserva = true;
-        contador++;
     }
 
     public int getIdReserva() {

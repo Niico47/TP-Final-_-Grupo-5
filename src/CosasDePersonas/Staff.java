@@ -1,30 +1,23 @@
 package CosasDePersonas;
-import Excepciones.ElementoDuplicadoException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class Staff extends Persona {
-    private static int contador = 1; // Contador global
-    private int id_Empleado;
-    private ETipoUsuario puesto;//recepcionista o administrador
+    private int idEmpleado;
+    private ETipoUsuario puesto; // recepcionista o administrador
     private double salarioBase;
     private String contrasenia;
     private boolean estadoStaff; // Esto es para cuando se elimina un Staff, para poder manejarlo en la base de datos
 
-    public Staff(String nombre, String dni, String domicilio, String localidad, ETipoUsuario puesto, double salarioBase, String contrasenia) {
+    public Staff(int idEmpleado, String nombre, String dni, String domicilio, String localidad, ETipoUsuario puesto, double salarioBase, String contrasenia) {
         super(nombre, dni, domicilio, localidad);
-        this.id_Empleado = contador;
+        this.idEmpleado = idEmpleado;
         this.puesto = puesto;
-        this.salarioBase = 300 * salarioStaff();//el salario base es 300, se multiplica por el un valor segun el puesto del empleado
+        this.salarioBase = salarioBase;
         this.contrasenia = contrasenia;
         this.estadoStaff = true;
-        contador++;
     }
 
-    public int getId_Empleado() {
-        return id_Empleado;
+    public int getIdEmpleado() {
+        return idEmpleado;
     }
 
     public ETipoUsuario getPuesto() {
