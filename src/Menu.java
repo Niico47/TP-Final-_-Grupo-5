@@ -1,8 +1,12 @@
+import CosasDeHabitaciones.EEstadoHabitacion;
+import CosasDeHabitaciones.ETipoHabitacion;
 import CosasDeHabitaciones.Habitacion;
+import CosasDePersonas.Cliente;
 import CosasDePersonas.Staff;
 import Excepciones.EErrorLogIn;
 import jdk.swing.interop.SwingInterOpUtils;
 
+import javax.management.relation.Role;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -93,21 +97,92 @@ import static CosasDePersonas.ETipoUsuario.Recepcionista;
                         String checkITexto= sc.nextLine();
                         System.out.println("\nIndique fecha de checkOut en el mismo formato: ");
                         String checkOutTexto = sc.nextLine();
+                        System.out.println("\nIngresar dni cliente");
+                        String dni=sc.nextLine();
+                        System.out.println("\nIngresar nro habitacion: ");
+                        int nroHabitacioon=sc.nextInt();
                         try{
                             //2.Convertir el texto a un objeto LocalDate
                             LocalDate checkIn = LocalDate.parse(checkITexto,formato);
                             System.out.println("\nFecha valida ingresada: "+checkIn);
                             LocalDate checkOut = LocalDate.parse(checkOutTexto,formato);
                             System.out.println("\nFecha valida ingresada: "+checkOut);
+                            hotel.crearReserva(checkIn,checkOut,dni,nroHabitacioon);
                         }catch(DateTimeParseException e){
                             //3.Manejar el error si el usuario escribe mal el formato o la fecha es invalida
                             System.out.println("Error:El formato debe ser dd/MM/yyyy");
                         }
                     break;
                     case 2:
-                            
+                        System.out.println("\nIngrese numero de habitacion:");
+                        int nroHabitacion=sc.nextInt();
+                        System.out.println("\nIngrese nombre del cliente: ");
+                        String nombre=sc.nextLine();
+                        System.out.println("\nIngrese dni: ");
+                        String dnii=sc.nextLine();
+                        System.out.println("\nIngrese localidad: ");
+                        String localidad=sc.nextLine();
+                        System.out.println("\nIngresar Domicilio: ");
+                        String domicilio=sc.nextLine();
+                        System.out.println();
+                        Cliente c1=new Cliente(nombre,dnii,localidad,domicilio);
+                        hotel.hacerCheckIn(c1.getDni(),nroHabitacion);
+                    break;
+                    case 3:
+                        System.out.println("\nIngrese nroHabitacion");
+                        int nroHabitacionn = sc.nextInt();
+                        System.out.println("\nIngrese dni cliente");
+                        String dniCliente=sc.nextLine();
+                        hotel.hacerCheckOut(dniCliente,nroHabitacionn);
+                    break;
+                    case 4:
+                        //1.Definir el formato esperado de la fecha
+                        DateTimeFormatter formatoo = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                        System.out.println("\nIndique fecha checkIn formato dd/MM/yyyy: ");
+                        String checkInTexto= sc.nextLine();
+                        System.out.println("\nIndique fecha de checkOut en el mismo formato: ");
+                        String checkOuttTexto = sc.nextLine();
+                        try{
+                            //2.Convertir el texto a un objeto LocalDate
+                            LocalDate checkIn = LocalDate.parse(checkInTexto,formatoo);
+                            System.out.println("\nFecha valida ingresada: "+checkIn);
+                            LocalDate checkOut = LocalDate.parse(checkOuttTexto,formatoo);
+                            System.out.println("\nFecha valida ingresada: "+checkOut);
+                            hotel.mostrarHabitacionesDisponibles(checkIn,checkOut);
+                        }catch(DateTimeParseException e){
+                            //3.Manejar el error si el usuario escribe mal el formato o la fecha es invalida
+                            System.out.println("Error:El formato debe ser dd/MM/yyyy");
+                        }
                     break;
                 }
             }
         }
     }
+//Registrar habitacion
+/*                     case 2:
+                        System.out.println("\nIngrese nro de habitacion: ");
+                        int nroHabitacion=sc.nextInt();
+                        System.out.println("\nIngrese estado Habitacion" +
+                                "DISPONIBLE" +
+                                "LIMPIEZA" +
+                                "OCUPADA" +
+                                "REPARACION" +
+                                "DESINFECCION: ");
+                        String estadoHabitacionTexto=sc.nextLine();
+                        System.out.println("\nIngrese tipo de habitacion" +
+                                "SINGLE" +
+                                "DOBLE" +
+                                "TRIPLE" +
+                                "SUIT: ");
+                        String tipoHabitacionTexto=sc.nextLine();
+                        try{
+                            //Convierte el String al tipo enum correspondiente
+                            EEstadoHabitacion estadoHabitacion = EEstadoHabitacion.valueOf(estadoHabitacionTexto);
+                            ETipoHabitacion tipoHabitacion = ETipoHabitacion.valueOf(tipoHabitacionTexto);
+                            Habitacion H1=new Habitacion(nroHabitacion,estadoHabitacion,tipoHabitacion);
+                            hotel.
+                        }catch(IllegalArgumentException e){
+                            //Ejecuta si el usuario escribio algo que no esta en el enum
+                            System.out.println("\nError: el rol asignado no esta en el enum");
+                        }
+                    break;*/
