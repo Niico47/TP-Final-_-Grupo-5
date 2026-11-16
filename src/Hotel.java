@@ -68,6 +68,22 @@ public class Hotel {
             }
         }
     }
+    public void eliminarHabitacion(int nroHabitacion){
+        for(Habitacion habitacion:listaHabitaciones.values()){
+            if(habitacion.getNumeroHabitacion()==nroHabitacion){
+                habitacionDAO.eliminarHabitacionPorNumeroDeDB(nroHabitacion);
+            }else{
+                throw new EHabitacionNoExiste("\nHabitacion no encontrada exception");
+            }
+        }
+    }
+    public void eliminarStaff(int idEmpleado){
+        for(Staff staff:listaStaff){
+            if(staff.getIdEmpleado()==idEmpleado){
+                staffDAO.eliminarStaffConIdDeDB(idEmpleado);
+            }
+        }
+    }
 
     public double calcularCostoReserva(int idReserva){// Calcula el costo total de la estadía correspondiente a una reserva
         Reserva reservaTemp=obtenerReservaPorID(idReserva);

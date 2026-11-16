@@ -2,6 +2,7 @@ import CosasDeHabitaciones.EEstadoHabitacion;
 import CosasDeHabitaciones.ETipoHabitacion;
 import CosasDeHabitaciones.Habitacion;
 import CosasDePersonas.Cliente;
+import CosasDePersonas.ETipoUsuario;
 import CosasDePersonas.Staff;
 import Excepciones.EErrorLogIn;
 
@@ -74,13 +75,13 @@ public class Menu {
         String mensaje = "";
         mensaje = "\n===== Menu Administrador =====" +
                 "\n1. Registrar Clientes" +
-                //Eliminar clientes
-                //Registrar nuevo Staff
-                //Eliminar Staff
                 "\n2. Registrar Habitacion" +
-                //Eliminar Habitacion
                 "\n3. Consultar Habitaciones disponibles" +
                 "\n4. Consultar calendario de habitacion" +
+                "\n5.Eliminar clientes" +
+                "\n6.Eliminar habitacion" +
+                "\n7.Registrar Staff" +
+                "\n8.Eliminar Staff" +
                 "\n0. Para finalizar" +
                 "\n======================================";
         return mensaje;
@@ -175,6 +176,12 @@ public class Menu {
                     sc.nextLine(); // Limpiar buffer
 
                     hotel.mostrarCalendarioHabitacion(anio, mes, nroHabitacionn);
+                break;
+                case 8:
+                    //Eliminar Staff
+                    System.out.println("\nIngrese el idEmpleado: ");
+                    int idEmpleado=sc.nextInt();
+                    hotel.eliminarStaff(idEmpleado);
                 break;
 
                 case 0: //Salir del menu
@@ -273,7 +280,41 @@ public class Menu {
                     hotel.eliminarCliente(dni);
                 break;
                 case 6:
-                    
+                    //Eliminar habitacion
+                    System.out.println("\nIngrese nro de habitacion que quiere eliminar");
+                    nroHabitacionn=sc.nextInt();
+                    hotel.eliminarHabitacion(nroHabitacionn);
+                break;
+                case 7:
+                    //Registrar Staff
+                    System.out.println("\nIngrese el id del empleado: ");
+                    int idEmpleado=sc.nextInt();
+                    System.out.println("\nIngrese nombre del empleado: ");
+                    nombre=sc.nextLine();
+                    System.out.println("\nIngrese dni del empleado: ");
+                    dni=sc.nextLine();
+                    System.out.println("\nIngrese localidad del empleado: ");
+                    localidad=sc.nextLine();
+                    System.out.println("\nIngrese domicilio del empleado: ");
+                    direccion=sc.nextLine();
+                    System.out.println("\nIngrese el salario del empleado: ");
+                    double salario=sc.nextDouble();
+                    System.out.println("\nIngrese contrasenia del empleado: ");
+                    String contrasenia=sc.nextLine();
+                    System.out.println("\nIngrese el tipo de usuario: " +
+                            "Administrador" +
+                            "Recepcionista" +
+                            "Limpieza" +
+                            "Mantenimiento");
+                    String tipos=sc.nextLine();
+                    try{
+                        //Convierte los textos a enums y crea la habitacion
+                        ETipoUsuario tipo = ETipoUsuario.valueOf(tipos.toUpperCase());
+                        Staff S1=new Staff(idEmpleado,nombre,dni,direccion,localidad,tipo,salario,contrasenia);
+                        hotel.registrarStaff(S1);
+                    }catch(IllegalArgumentException e){
+                        System.out.println("\nError: el estado o tipo ingresado no coincide con los valores permitidos.");
+                    }
                 break;
                 case 0: //Salir del menu
                     System.out.println("\nFinalizo la interaccion con el menu");
