@@ -47,10 +47,12 @@ import static CosasDePersonas.ETipoUsuario.Recepcionista;
                 switch (empleado.getPuesto()) {
                     case Administrador -> {
                         System.out.println(menuAdministrador());
+                        iteracionMenuAdministrador();
                         break;
                     }
                     case Recepcionista -> {
                         System.out.println(menuRecepcionista());
+                        iteracionMenuRecepcionista();
                         break;
                     }
                 }
