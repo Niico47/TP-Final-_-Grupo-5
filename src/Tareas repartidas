@@ -64,3 +64,20 @@ truncate habitaciones;
 settings
 plugins
 plantuml4idea (installar)
+
+mas cosas que podemos usar para el menu:
+algunas pueden ya estar echas, no tener sentino o ser una cosa que habria que poder
+
+costo final
+get detalle consumos
+finalizar limpieza habitacion
+habilitar habitacion
+(
+ponerHabitacionesEnDesinfeccion
+PonerHabitacionesEnReparacion
+PonerHabitacionEnLimpieza
+)
+esas 3 podrian ir en una sola opcion del menu
+
+cambiarEstadoHabitacion
+mostrar consumos
